@@ -16,7 +16,7 @@ function shuffleDeck(deck) {
   shuffleDeck(cards);
 // Loading the file index.html displayed to the client
 
-var port = process.env.PORT;
+var port = process.env.PORT || 8080;
 
 server.use(express.static(__dirname + '/public'));
 
