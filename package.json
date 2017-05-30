@@ -7,7 +7,9 @@
     "node": "6.10.3",
     "npm": "3.10.10"
   },
-  "start": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "express": "^4.15.3",
     "socket.io": "^2.0.1"
