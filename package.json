@@ -8,6 +8,7 @@
     "npm": "3.10.10"
   },
   "dependencies": {
+    "express": "^4.15.3",
     "socket.io": "^2.0.1"
   },
   "devDependencies": {},
