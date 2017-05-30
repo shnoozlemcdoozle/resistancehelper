@@ -16,7 +16,7 @@ function shuffleDeck(deck) {
   shuffleDeck(cards);
 // Loading the file index.html displayed to the client
 var server = http.createServer(function(req, res) {
-    fs.readFile('./index.html', 'utf-8', function(error, content) {
+    fs.readFile('./public/index.html', 'utf-8', function(error, content) {
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(content);
     });
@@ -24,6 +24,8 @@ var server = http.createServer(function(req, res) {
 
 // Loading socket.io
 var io = require('socket.io').listen(server);
+
+app.use(express.static(__dirname + '/public'));
 
 var players = [];
 
