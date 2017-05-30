@@ -1,0 +1,23 @@
+{
+  "name": "resistancehelper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "socket.io": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shnoozlemcdoozle/resistancehelper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shnoozlemcdoozle/resistancehelper/issues"
+  },
+  "homepage": "https://github.com/shnoozlemcdoozle/resistancehelper#readme"
+}
