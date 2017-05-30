@@ -1,5 +1,5 @@
-var http = require('http');
-var fs = require('fs');
+var express = require('express'),
+    server = express();
 
 var cards = ['You are a spy!', 'You are a spy!', 'You are part of the resistance!', 'You are part of the resistance!', 'You are part of the resistance!'];
 
@@ -15,15 +15,13 @@ function shuffleDeck(deck) {
 
   shuffleDeck(cards);
 // Loading the file index.html displayed to the client
-var server = http.createServer(function(req, res) {
-    fs.readFile('./public/index.html', 'utf-8', function(error, content) {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.end(content);
-    });
-});
+
+var port = process.env.PORT || 8080;
+
+app.use(express.static(__dirname + '/public'));
 
 // Loading socket.io
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server.listen(port));
 
 var players = [];
 
@@ -52,6 +50,3 @@ io.sockets.on('connection', function (socket, username) {
     });
     
 });
-
-
-server.listen(process.env.PORT || 8080);
