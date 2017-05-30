@@ -12,9 +12,6 @@
     "socket.io": "^2.0.1"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "app.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shnoozlemcdoozle/resistancehelper.git"

@@ -25,8 +25,6 @@ var server = http.createServer(function(req, res) {
 // Loading socket.io
 var io = require('socket.io').listen(server);
 
-app.use(express.static(__dirname + '/public'));
-
 var players = [];
 
 io.sockets.on('connection', function (socket, username) {
