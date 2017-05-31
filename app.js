@@ -1,7 +1,16 @@
 var express = require('express'),
     server = express();
 
-var cards = ['You are a spy!', 'You are a spy!', 'You are part of the resistance!', 'You are part of the resistance!', 'You are part of the resistance!'];
+var cards5 = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards6 = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards7 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards8 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards9 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards10 = ['a spy!', 'a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!']
+
+
+
+pickedDeck = cards5;
 
 function shuffleDeck(deck) {
     for (var i = deck.length - 1; i > 0; i--) {
@@ -13,7 +22,7 @@ function shuffleDeck(deck) {
     return deck;
   }
 
-  shuffleDeck(cards);
+  shuffleDeck(pickedDeck);
 // Loading the file index.html displayed to the client
 
 var port = process.env.PORT || 8080;
@@ -43,10 +52,40 @@ io.sockets.on('connection', function (socket, username) {
     
     socket.on('teamRequest', function() {
 
-      var chosenCard = cards.shift();
+      var chosenCard = pickedDeck.shift();
 
       socket.emit('teamCard', chosenCard);
 
+    });
+
+    socket.on('changeNumPlayers', function(data) {
+        if (data == 5) {
+            pickedDeck = cards5;
+            console.log('Players changed to 5');
+        } else if (data == 6) {
+            pickedDeck = cards6;
+            console.log('Players changed to 6');
+        } else if (data == 7) {
+            pickedDeck = cards7;
+            console.log('Players changed to 7');
+        } else if (data == 8) {
+            pickedDeck = cards8;
+            console.log('Players changed to 8');
+        } else if (data == 9) {
+            pickedDeck = cards9;
+            console.log('Players changed to 9');
+        } else if (data == 10) {
+            pickedDeck = cards10;
+            console.log('Players changed to 10');
+        }
+    });
+
+    socket.on('resetBtnOnClick', function() {
+        players = [];
+        pickedDeck = cards5;
+        socket.broadcast.emit('playersUpdate', players);
+        socket.emit('playersUpdate', players);
+        socket.broadcast.emit('resetAll')
     });
     
 });

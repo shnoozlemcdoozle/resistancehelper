@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>Resistance Helper</title>
 
    
   </head>
@@ -24,12 +24,20 @@
 
       <div class="jumbotron">
         <h1>Resistance</h1>
-        <p class="lead">Are you a sneaky spy? A fighter of the resistance? Click below to find out! </p>
+        <p class="lead">Get ready to lose some friends. </p>
         <p id="teamSpot"> </p>
         <a class="btn btn-lg btn-success" id="poke" href="#" role="button">Reveal your team</a>
+        <br><br>
+        <h4>Start a vote</h4>
+        <div>
+        <a class="btn btn-info" id="teamVoteBtn" href="#" role="button">Team</a>
+        <a class="btn btn-info" id="missionVoteBtn" href="#" role="button">Mission</a>
+        </div>
         
        
       </div>
+      <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
+      <a class="btn btn-xs btn-danger" id="resetBtn" href="#" role="button">Reset the game</a>
 
     </div> <!-- /container -->
 
@@ -53,15 +61,39 @@
             // When the button is clicked, a "message" is sent to the server
             $('#poke').click(function () {
                 socket.emit('teamRequest');
-                document.getElementById("poke").style.visibility = "hidden";
+                document.getElementById("poke").style.display = "none";
+            });
+
+           $('#changeNumPlayersBtn').click(function () {
+                var newNumber = prompt('How many people are playing? (5-10)');
+                if (newNumber < 4 || newNumber > 10) {
+                    var newNumber = prompt('That is not a valid number of players. Please pick a value from 5-10');
+                    if (newNumber > 3 && newNumber < 11) {
+                        socket.emit('changeNumPlayers', newNumber);
+                    }
+                } else {
+                socket.emit('changeNumPlayers', newNumber);
+                }
+            });
+
+            $('#resetBtn').click(function() {
+                socket.emit('resetBtnOnClick');
+                location.reload();
             });
 
             socket.on('teamCard', function(team) {
-                $('#teamSpot').append(team);
+                $('#teamSpot').append('You are a ' + team);
             })
 
             socket.on('playersUpdate', function(list) {
                 $('#playersSpot').empty().append(list.join(', ').toUpperCase());
+            })
+
+            socket.on('resetAll', function() {
+                location.reload();
+                $('#playersSpot').empty().append(list.join(', ').toUpperCase());
+                var username = prompt('What\'s your name?');
+                socket.emit('little_newbie', username);
             })
         </script>
   </body>
