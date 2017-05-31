@@ -39,7 +39,7 @@ io.sockets.on('connection', function (socket, username) {
     socket.emit('message', 'You are connected!');
     
     // As soon as the username is received, it's stored as a session variable
-    socket.on('little_newbie', function(username) {
+    socket.on('usernameSend', function(username) {
         socket.username = username;
         
         players.push(username);

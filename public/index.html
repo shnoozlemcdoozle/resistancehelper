@@ -39,6 +39,10 @@
       <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
       <a class="btn btn-xs btn-danger" id="resetBtn" href="#" role="button">Reset the game</a>
 
+      <br><br>
+
+    <p id=currentPlayerConfig>Set for 5 players</p>
+
     </div> <!-- /container -->
 
 
@@ -54,8 +58,8 @@
             // The visitor is asked for their username...
             var username = prompt('What\'s your name?');
             
-            // It's sent with the signal "little_newbie" (to differentiate it from "message")
-            socket.emit('little_newbie', username);
+            // It's sent with the signal "usernameSend" (to differentiate it from "message")
+            socket.emit('usernameSend', username);
         
     
             // When the button is clicked, a "message" is sent to the server
@@ -70,15 +74,21 @@
                     var newNumber = prompt('That is not a valid number of players. Please pick a value from 5-10');
                     if (newNumber > 3 && newNumber < 11) {
                         socket.emit('changeNumPlayers', newNumber);
+                        $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
                     }
                 } else {
+                $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
                 socket.emit('changeNumPlayers', newNumber);
                 }
             });
 
             $('#resetBtn').click(function() {
+                if (confirm('Are you sure?')){
                 socket.emit('resetBtnOnClick');
                 location.reload();
+              } else {
+                return false;
+              }
             });
 
             socket.on('teamCard', function(team) {
@@ -90,10 +100,12 @@
             })
 
             socket.on('resetAll', function() {
+                if (resetAction == true) {
                 location.reload();
                 $('#playersSpot').empty().append(list.join(', ').toUpperCase());
                 var username = prompt('What\'s your name?');
-                socket.emit('little_newbie', username);
+                socket.emit('usernameSend', username);
+                }
             })
         </script>
   </body>
