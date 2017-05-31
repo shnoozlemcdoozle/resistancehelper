@@ -11,6 +11,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "bootbox": "^4.4.0",
     "bootstrap": "^3.3.7",
     "express": "^4.15.3",
     "socket.io": "^2.0.1"
