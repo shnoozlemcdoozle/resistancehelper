@@ -59,7 +59,11 @@ body {
   margin-top: 28px;
 }
 
-.playersSpot #playersSpot {
+.playersSpot {
+  text-align: center;
+}
+
+#playersSpot {
   text-align: center;
 }
 
