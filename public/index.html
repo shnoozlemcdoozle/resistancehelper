@@ -61,11 +61,18 @@
             
             socket.emit('usernameSend', username);
 
+            socket.emit('teamRequest');
+
             // Buttons 
         
-            $('#poke').click(function () {
-                socket.emit('teamRequest');
+            $('#poke').on('click touchstart', function() {
+                document.getElementById("teamSpot").style.display = "inline";   
                 document.getElementById("poke").style.display = "none";
+            });
+
+            $("#poke").on('click touchend', function() {
+                document.getElementById("teamSpot").style.display = "none";   
+                document.getElementById("poke").style.display = "inline";
             });
 
            $('#changeNumPlayersBtn').click(function () {
