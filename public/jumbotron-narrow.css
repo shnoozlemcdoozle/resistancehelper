@@ -68,6 +68,15 @@ body {
   text-align: center;
 }
 
+#approveMessage {
+  size: 40px;
+  color: green;
+}
+
+#vetoMessage {
+  size: 40px;
+  color: red;
+}
 
 
 /* Responsive: Portrait tablets and up */

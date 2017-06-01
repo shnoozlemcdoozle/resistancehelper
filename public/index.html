@@ -96,6 +96,11 @@
 
              });
 
+              $('#missionVoteBtn').click(function() {
+                 socket.emit('missionVoteBtnOnClick');
+
+             });
+
             // Sockets
 
             socket.on('teamCard', function(team) {
@@ -124,6 +129,7 @@
 
             socket.on('beginTeamVote', function() {
                 bootbox.confirm({
+                title: "Team Vote",
                 message: "Would you like to approve the team proposed?",
                 buttons: {
                 confirm: {
@@ -137,10 +143,62 @@
              },
                 callback: function (result) {
             console.log('This was logged in the callback: ' + result);
+            if (result == true) {
+                socket.emit('playerVoteApprove');
+            } else if (result == false) {
+                socket.emit('playerVoteVeto');
+            }
     }
 });
             });
 
+            socket.on('teamVoteFinished', function(approve, veto) {
+                console.log(approve + "and" + veto)
+                bootbox.alert({
+                     message: '<p id="approveMessage">Approve: </p>' + approve + '<p id="vetoMessage">Veto: </p>' + veto,                       
+                     className: 'bb-alternate-modal', 
+                     title: 'Team Vote',             
+                     callback: function() {
+                        socket.emit('teamVoteFinishedReset');
+                }
+                });
+            })
+
+            socket.on('beginMissionVote', function() {
+                bootbox.confirm({
+                title: "Mission Vote",
+                message: "Would you like to pass or fail this mission?",
+                buttons: {
+                confirm: {
+                label: 'Pass',
+                 className: 'btn-success'
+                    },
+                 cancel: {
+              label: 'Fail',
+                className: 'btn-danger'
+                }
+             },
+                callback: function (result) {
+            console.log('This was logged in the callback: ' + result);
+            if (result == true) {
+                socket.emit('playerVotePass');
+            } else if (result == false) {
+                socket.emit('playerVoteFail');
+            }
+    }
+});
+            });
+
+            socket.on('missionVoteFinished', function(pass, fail) {            
+                bootbox.alert({
+                     message: '<p id="approveMessage">Pass: </p>' + pass + '<p id="vetoMessage">Fail: </p>' + fail,                       
+                     className: 'bb-alternate-modal', 
+                     title: 'Mission Vote',             
+                     callback: function() {
+                        socket.emit('missionVoteFinishedReset');
+                }
+                });
+            })
 
         </script>
   </body>

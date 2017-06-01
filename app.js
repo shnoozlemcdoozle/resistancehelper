@@ -1,12 +1,12 @@
 var express = require('express'),
     server = express();
 
-var cards5 = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
-    cards6 = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
-    cards7 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
-    cards8 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
-    cards9 = ['a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
-    cards10 = ['a spy!', 'a spy!', ' a spy!', 'a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!']
+var cards5 = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards6 = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards7 = ['spy!', 'spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards8 = ['spy!', 'spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards9 = ['spy!', 'spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'],
+    cards10 = ['spy!', 'spy!', 'spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!']
 
 
 
@@ -35,6 +35,19 @@ var io = require('socket.io').listen(server.listen(port));
 var players = [];
 
 var playersNumber = 5;
+
+var teamVoteApprove = 0;
+
+var teamVoteVeto = 0;
+
+var teamVoteResponses = 0;
+
+var missionVotePass = 0;
+
+var missionVoteFail = 0;
+
+var missionVoteResponses = 0;
+
 
 io.sockets.on('connection', function (socket, username) {
     
@@ -98,7 +111,7 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('resetBtnOnClick', function() {
         players = [];
-        pickedDeck = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
+        pickedDeck = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
         socket.broadcast.emit('resetAll')
@@ -109,6 +122,62 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('teamVoteBtnOnClick', function() {
         socket.emit('beginTeamVote');
         socket.broadcast.emit('beginTeamVote');
+    });
+
+    socket.on('playerVoteApprove', function() {
+        teamVoteApprove += 1;
+        teamVoteResponses += 1;
+        if (teamVoteResponses == playersNumber) {
+            socket.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
+            socket.broadcast.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
+            console.log("Team vote is finished")
+        }
+    });
+    
+    socket.on('playerVoteVeto', function() {
+        teamVoteVeto += 1;
+        teamVoteResponses += 1;
+        if (teamVoteResponses == playersNumber) {
+            socket.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
+            socket.broadcast.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
+            console.log("Team vote is finished")
+        }
+    });
+
+    socket.on('teamVoteFinishedReset', function() {
+        teamVoteApprove = 0;
+        teamVoteVeto = 0;
+        teamVoteResponses = 0;
     })
     
+    socket.on('missionVoteBtnOnClick', function() {
+        socket.emit('beginMissionVote');
+        socket.broadcast.emit('beginMissionVote');
+    });
+
+    socket.on('playerVotePass', function() {
+        missionVotePass += 1;
+        missionVoteResponses += 1;
+        if (missionVoteResponses == playersNumber) {
+            socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
+            socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);
+            console.log("Mission vote is finished")
+        }
+    });
+    
+    socket.on('playerVoteFail', function() {
+        missionVoteFail += 1;
+        missionVoteResponses += 1;
+        if (missionVoteResponses == playersNumber) {
+            socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
+            socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);
+            console.log("Mission vote is finished")
+        }
+    });
+
+    socket.on('missionVoteFinishedReset', function() {
+        missionVotePass = 0;
+        missionVoteFail = 0;
+        missionVoteResponses = 0;
+    })
 });
