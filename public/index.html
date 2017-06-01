@@ -75,6 +75,28 @@
                 document.getElementById("poke").style.display = "inline";
             });
 
+            $("#poke").extend({ 
+             disableSelection : function() { 
+                this.each(function() { 
+                        this.onselectstart = function() { return false; }; 
+                        this.unselectable = "on"; 
+                        $(this).css('-moz-user-select', 'none'); 
+                        $(this).css('-webkit-user-select', 'none'); 
+                }); 
+        } 
+});
+
+            $("#teamSpot").extend({ 
+             disableSelection : function() { 
+                this.each(function() { 
+                        this.onselectstart = function() { return false; }; 
+                        this.unselectable = "on"; 
+                        $(this).css('-moz-user-select', 'none'); 
+                        $(this).css('-webkit-user-select', 'none'); 
+                }); 
+        } 
+});
+
            $('#changeNumPlayersBtn').click(function () {
                 var newNumber = prompt('How many people are playing? (5-10)');
                 if (newNumber < 4 || newNumber > 10) {
