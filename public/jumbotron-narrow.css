@@ -78,6 +78,12 @@ body {
   color: red;
 }
 
+.no-copy p {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */     
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
