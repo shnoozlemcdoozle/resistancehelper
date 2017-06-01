@@ -115,12 +115,11 @@
             })
 
             socket.on('resetAll', function() {
-                if (resetAction == true) {
                 location.reload();
                 $('#playersSpot').empty().append(list.join(', ').toUpperCase());
                 var username = prompt('What\'s your name?');
                 socket.emit('usernameSend', username);
-                }
+                
             })
 
             socket.on('beginTeamVote', function() {

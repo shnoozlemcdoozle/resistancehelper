@@ -98,10 +98,12 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('resetBtnOnClick', function() {
         players = [];
-        pickedDeck = cards5;
+        pickedDeck = ['a spy!', ' a spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
         socket.broadcast.emit('resetAll')
+        playersNumber = 5;
+        socket.broadcast.emit('playerConfigUpdate', 5);
     });
 
     socket.on('teamVoteBtnOnClick', function() {
