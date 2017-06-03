@@ -48,7 +48,6 @@ var missionVoteFail = 0;
 
 var missionVoteResponses = 0;
 
-
 io.sockets.on('connection', function (socket, username) {
     
     socket.emit('message', 'You are connected!');
@@ -80,31 +79,37 @@ io.sockets.on('connection', function (socket, username) {
             pickedDeck = cards5;
             console.log('Players changed to 5');
             playersNumber = 5;
+            socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 6) {
             pickedDeck = cards6;
             console.log('Players changed to 6');
             playersNumber = 6;
+            socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 7) {
             pickedDeck = cards7;
             console.log('Players changed to 7');
             playersNumber = 7;
+            socket.emit('playerConfigUpdate', data);
            socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 8) {
             pickedDeck = cards8;
             console.log('Players changed to 8');
             playersNumber = 8;
+            socket.emit('playerConfigUpdate', data);
            socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 9) {
             pickedDeck = cards9;
             console.log('Players changed to 9');
             playersNumber = 9;
+            socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 10) {
             pickedDeck = cards10;
             console.log('Players changed to 10');
             playersNumber = 10;
+            socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         }
     });
@@ -127,6 +132,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('playerVoteApprove', function() {
         teamVoteApprove += 1;
         teamVoteResponses += 1;
+        socket.emit('playerVotedTeam', teamVoteResponses, playersNumber);
+        socket.broadcast.emit('playerVotedTeam', teamVoteResponses, playersNumber);
         if (teamVoteResponses == playersNumber) {
             socket.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
             socket.broadcast.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
@@ -137,6 +144,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('playerVoteVeto', function() {
         teamVoteVeto += 1;
         teamVoteResponses += 1;
+        socket.emit('playerVotedTeam', teamVoteResponses, playersNumber);
+        socket.broadcast.emit('playerVotedTeam', teamVoteResponses, playersNumber);
         if (teamVoteResponses == playersNumber) {
             socket.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
             socket.broadcast.emit('teamVoteFinished', teamVoteApprove, teamVoteVeto);
@@ -158,6 +167,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('playerVotePass', function() {
         missionVotePass += 1;
         missionVoteResponses += 1;
+        socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
+        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersNumber);
         if (missionVoteResponses == playersNumber) {
             socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);
@@ -168,6 +179,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('playerVoteFail', function() {
         missionVoteFail += 1;
         missionVoteResponses += 1;
+        socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
+        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersNumber);
         if (missionVoteResponses == playersNumber) {
             socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);

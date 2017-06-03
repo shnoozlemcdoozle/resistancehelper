@@ -33,7 +33,10 @@
         <a class="btn btn-info" id="teamVoteBtn" href="#" role="button">Team</a>
         <a class="btn btn-info" id="missionVoteBtn" href="#" role="button">Mission</a>
         </div>
-        
+        <div>
+            <br>
+            <p id="currentVoteCount"></p>
+        </div>
        
       </div>
       <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
@@ -56,20 +59,23 @@
         <script>
             var socket = io();
 
-            
+            var sentTeam = 0;
+
             var username = prompt('What\'s your name?');
             
             socket.emit('usernameSend', username);
 
-            socket.emit('teamRequest');
-
             document.getElementById("teamSpot").style.display = "none";
 
             // Buttons 
-        
+             
             $('#poke').on('click touchstart', function() {
                 document.getElementById("teamSpot").style.display = "inline";   
                 document.getElementById("poke").style.display = "none";
+                if (sentTeam == 0) {
+                     socket.emit('teamRequest');
+                     sentTeam += 1;
+                }
             });
 
             $("#poke").on('click touchend', function() {
@@ -148,6 +154,8 @@
 
             socket.on('playerConfigUpdate', function(data) {
                 $('#currentPlayerConfig').empty().append("Set for " + data + " players");
+                $('#teamSpot').empty();
+                sentTeam = 0;
             })
 
             socket.on('resetAll', function() {
@@ -157,7 +165,18 @@
                 socket.emit('usernameSend', username);
                 
             })
+            socket.on('playerVotedTeam', function(totalTeamVotes, totalPlayerCount) {
+                var percentDone = totalTeamVotes/totalPlayerCount * 100;
+               $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
+                  console.log(percentDone); 
+            });
 
+             socket.on('playerVotedMission', function(totalMissionVotes, totalPlayerCount) {
+                var percentDone = totalMissionVotes/totalPlayerCount * 100;
+               $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
+                  console.log(percentDone); 
+            });
+        
             socket.on('beginTeamVote', function() {
                 bootbox.confirm({
                 title: "Team Vote",
@@ -180,7 +199,7 @@
                 socket.emit('playerVoteVeto');
             }
     }
-});
+})
             });
 
             socket.on('teamVoteFinished', function(approve, veto) {
@@ -191,6 +210,7 @@
                      title: 'Team Vote',             
                      callback: function() {
                         socket.emit('teamVoteFinishedReset');
+                        $('#currentVoteCount').empty();
                 }
                 });
             })
@@ -227,6 +247,7 @@
                      title: 'Mission Vote',             
                      callback: function() {
                         socket.emit('missionVoteFinishedReset');
+                        $('#currentVoteCount').empty();
                 }
                 });
             })
