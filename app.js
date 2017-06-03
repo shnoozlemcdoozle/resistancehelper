@@ -14,15 +14,15 @@ pickedDeck = cards5;
 
 function shuffleDeck(deck) {
     for (var i = deck.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = deck[i];
-      deck[i] = deck[j];
-      deck[j] = temp;
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
     }
     return deck;
-  }
+}
 
-  shuffleDeck(pickedDeck);
+shuffleDeck(pickedDeck);
 // Loading the file index.html displayed to the client
 
 var port = process.env.PORT || 8080;
@@ -49,32 +49,32 @@ var missionVoteFail = 0;
 var missionVoteResponses = 0;
 
 io.sockets.on('connection', function (socket, username) {
-    
+
     socket.emit('message', 'You are connected!');
-    
-    
-    socket.on('usernameSend', function(username) {
+
+
+    socket.on('usernameSend', function (username) {
         socket.username = username;
-        
+
         players.push(username);
-        
+
         console.log(players);
-        
+
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
 
         socket.emit('playersNumberUpdaterNew', playersNumber);
-        });
-    
-    socket.on('teamRequest', function() {
+    });
 
-      var chosenCard = pickedDeck.shift();
+    socket.on('teamRequest', function () {
 
-      socket.emit('teamCard', chosenCard);
+        var chosenCard = pickedDeck.shift();
+
+        socket.emit('teamCard', chosenCard);
 
     });
 
-    socket.on('changeNumPlayers', function(data) {
+    socket.on('changeNumPlayers', function (data) {
         if (data == 5) {
             pickedDeck = cards5;
             console.log('Players changed to 5');
@@ -92,13 +92,13 @@ io.sockets.on('connection', function (socket, username) {
             console.log('Players changed to 7');
             playersNumber = 7;
             socket.emit('playerConfigUpdate', data);
-           socket.broadcast.emit('playerConfigUpdate', data);
+            socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 8) {
             pickedDeck = cards8;
             console.log('Players changed to 8');
             playersNumber = 8;
             socket.emit('playerConfigUpdate', data);
-           socket.broadcast.emit('playerConfigUpdate', data);
+            socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 9) {
             pickedDeck = cards9;
             console.log('Players changed to 9');
@@ -114,7 +114,7 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
-    socket.on('resetBtnOnClick', function() {
+    socket.on('resetBtnOnClick', function () {
         players = [];
         pickedDeck = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
         socket.broadcast.emit('playersUpdate', players);
@@ -126,12 +126,12 @@ io.sockets.on('connection', function (socket, username) {
         missionVoteResponses = 0;
     });
 
-    socket.on('teamVoteBtnOnClick', function() {
+    socket.on('teamVoteBtnOnClick', function () {
         socket.emit('beginTeamVote');
         socket.broadcast.emit('beginTeamVote');
     });
 
-    socket.on('playerVoteApprove', function() {
+    socket.on('playerVoteApprove', function () {
         teamVoteApprove += 1;
         teamVoteResponses += 1;
         socket.emit('playerVotedTeam', teamVoteResponses, playersNumber);
@@ -142,8 +142,8 @@ io.sockets.on('connection', function (socket, username) {
             console.log("Team vote is finished")
         }
     });
-    
-    socket.on('playerVoteVeto', function() {
+
+    socket.on('playerVoteVeto', function () {
         teamVoteVeto += 1;
         teamVoteResponses += 1;
         socket.emit('playerVotedTeam', teamVoteResponses, playersNumber);
@@ -155,18 +155,18 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
-    socket.on('teamVoteFinishedReset', function() {
+    socket.on('teamVoteFinishedReset', function () {
         teamVoteApprove = 0;
         teamVoteVeto = 0;
         teamVoteResponses = 0;
     })
-    
-    socket.on('missionVoteBtnOnClick', function() {
+
+    socket.on('missionVoteBtnOnClick', function () {
         socket.emit('beginMissionVote');
         socket.broadcast.emit('beginMissionVote');
     });
 
-    socket.on('playerVotePass', function() {
+    socket.on('playerVotePass', function () {
         missionVotePass += 1;
         missionVoteResponses += 1;
         socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
@@ -177,8 +177,8 @@ io.sockets.on('connection', function (socket, username) {
             console.log("Mission vote is finished")
         }
     });
-    
-    socket.on('playerVoteFail', function() {
+
+    socket.on('playerVoteFail', function () {
         missionVoteFail += 1;
         missionVoteResponses += 1;
         socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
@@ -190,7 +190,7 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
-    socket.on('missionVoteFinishedReset', function() {
+    socket.on('missionVoteFinishedReset', function () {
         missionVotePass = 0;
         missionVoteFail = 0;
         missionVoteResponses = 0;

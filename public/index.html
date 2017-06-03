@@ -1,259 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
     <title>Resistance Helper</title>
 
-   
-  </head>
 
-  <body>
+</head>
 
-       <div class="playersSpot">
+<body>
+
+    <div class="playersSpot">
         <div class="col-lg-6">
-          <h4>Players in this game</h4>
-          <p id="playersSpot"></p>
+            <h4>Players in this game</h4>
+            <p id="playersSpot"></p>
         </div>
 
-      <div class="jumbotron">
-        <h1>Resistance</h1>
-        <p class="lead">Get ready to lose some friends. </p>
-        <p id="teamSpot"> </p>
-        <a class="btn btn-lg btn-success" id="poke" href="#" role="button">Reveal your team</a>
+        <div class="jumbotron">
+            <h1>Resistance</h1>
+            <p class="lead">Get ready to lose some friends. </p>
+            <p id="teamSpot"> </p>
+            <a class="btn btn-lg btn-success" id="poke" href="#" role="button">Reveal your team</a>
+            <br><br>
+            <h4>Start a vote</h4>
+            <div>
+                <a class="btn btn-info" id="teamVoteBtn" href="#" role="button">Team</a>
+                <a class="btn btn-info" id="missionVoteBtn" href="#" role="button">Mission</a>
+            </div>
+            <div>
+                <br>
+                <p id="currentVoteCount"></p>
+            </div>
+
+        </div>
+        <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
+        <a class="btn btn-xs btn-danger" id="resetBtn" href="#" role="button">Reset the game</a>
+
         <br><br>
-        <h4>Start a vote</h4>
-        <div>
-        <a class="btn btn-info" id="teamVoteBtn" href="#" role="button">Team</a>
-        <a class="btn btn-info" id="missionVoteBtn" href="#" role="button">Mission</a>
-        </div>
-        <div>
-            <br>
-            <p id="currentVoteCount"></p>
-        </div>
-       
-      </div>
-      <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
-      <a class="btn btn-xs btn-danger" id="resetBtn" href="#" role="button">Reset the game</a>
 
-      <br><br>
+        <p id=currentPlayerConfig>Set for 5 players</p>
 
-    <p id=currentPlayerConfig>Set for 5 players</p>
-
-    </div> 
+    </div>
 
 
-    
-        <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <link href="jumbotron-narrow.css" rel="stylesheet">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-            var socket = io();
 
-            var sentTeam = 0;
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
 
-            var username = prompt('What\'s your name?');
-            
-            socket.emit('usernameSend', username);
+        var sentTeam = 0;
 
+        var username = prompt('What\'s your name?');
+
+        socket.emit('usernameSend', username);
+
+        document.getElementById("teamSpot").style.display = "none";
+
+        // Buttons 
+
+        $('#poke').on('click touchstart', function () {
+            document.getElementById("teamSpot").style.display = "inline";
+            document.getElementById("poke").style.display = "none";
+            if (sentTeam == 0) {
+                socket.emit('teamRequest');
+                sentTeam += 1;
+            }
+        });
+
+        $("#poke").on('click touchend', function () {
             document.getElementById("teamSpot").style.display = "none";
+            document.getElementById("poke").style.display = "inline";
+        });
 
-            // Buttons 
-             
-            $('#poke').on('click touchstart', function() {
-                document.getElementById("teamSpot").style.display = "inline";   
-                document.getElementById("poke").style.display = "none";
-                if (sentTeam == 0) {
-                     socket.emit('teamRequest');
-                     sentTeam += 1;
+        $("#poke").extend({
+            disableSelection: function () {
+                this.each(function () {
+                    this.onselectstart = function () { return false; };
+                    this.unselectable = "on";
+                    $(this).css('-moz-user-select', 'none');
+                    $(this).css('-webkit-user-select', 'none');
+                });
+            }
+        });
+
+        $("#teamSpot").extend({
+            disableSelection: function () {
+                this.each(function () {
+                    this.onselectstart = function () { return false; };
+                    this.unselectable = "on";
+                    $(this).css('-moz-user-select', 'none');
+                    $(this).css('-webkit-user-select', 'none');
+                });
+            }
+        });
+
+        $('#changeNumPlayersBtn').click(function () {
+            var newNumber = prompt('How many people are playing? (5-10)');
+            if (newNumber < 4 || newNumber > 10) {
+                var newNumber = prompt('That is not a valid number of players. Please pick a value from 5-10');
+                if (newNumber > 3 && newNumber < 11) {
+                    socket.emit('changeNumPlayers', newNumber);
+                    $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
                 }
-            });
-
-            $("#poke").on('click touchend', function() {
-                document.getElementById("teamSpot").style.display = "none";   
-                document.getElementById("poke").style.display = "inline";
-            });
-
-            $("#poke").extend({ 
-             disableSelection : function() { 
-                this.each(function() { 
-                        this.onselectstart = function() { return false; }; 
-                        this.unselectable = "on"; 
-                        $(this).css('-moz-user-select', 'none'); 
-                        $(this).css('-webkit-user-select', 'none'); 
-                }); 
-        } 
-});
-
-            $("#teamSpot").extend({ 
-             disableSelection : function() { 
-                this.each(function() { 
-                        this.onselectstart = function() { return false; }; 
-                        this.unselectable = "on"; 
-                        $(this).css('-moz-user-select', 'none'); 
-                        $(this).css('-webkit-user-select', 'none'); 
-                }); 
-        } 
-});
-
-           $('#changeNumPlayersBtn').click(function () {
-                var newNumber = prompt('How many people are playing? (5-10)');
-                if (newNumber < 4 || newNumber > 10) {
-                    var newNumber = prompt('That is not a valid number of players. Please pick a value from 5-10');
-                    if (newNumber > 3 && newNumber < 11) {
-                        socket.emit('changeNumPlayers', newNumber);
-                        $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
-                    }
-                } else {
+            } else {
                 $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
                 socket.emit('changeNumPlayers', newNumber);
-                }
-            });
+            }
+        });
 
-            $('#resetBtn').click(function() {
-                if (confirm('Are you sure?')){
+        $('#resetBtn').click(function () {
+            if (confirm('Are you sure?')) {
                 socket.emit('resetBtnOnClick');
                 location.reload();
-              } else {
+            } else {
                 return false;
-              }
-            });
+            }
+        });
 
-             $('#teamVoteBtn').click(function() {
-                 socket.emit('teamVoteBtnOnClick');
+        $('#teamVoteBtn').click(function () {
+            socket.emit('teamVoteBtnOnClick');
 
-             });
+        });
 
-              $('#missionVoteBtn').click(function() {
-                 socket.emit('missionVoteBtnOnClick');
+        $('#missionVoteBtn').click(function () {
+            socket.emit('missionVoteBtnOnClick');
 
-             });
+        });
 
-            // Sockets
+        // Sockets
 
-            socket.on('teamCard', function(team) {
-                $('#teamSpot').append('You are a ' + team);
-            })
+        socket.on('teamCard', function (team) {
+            $('#teamSpot').append('You are a ' + team);
+        })
 
-            socket.on('playersUpdate', function(list) {
-                $('#playersSpot').empty().append(list.join(', ').toUpperCase());
-            });
+        socket.on('playersUpdate', function (list) {
+            $('#playersSpot').empty().append(list.join(', ').toUpperCase());
+        });
 
-            socket.on('playersNumberUpdaterNew', function(data) {
-                $('#currentPlayerConfig').empty().append("Set for " + data + " players");
-            })
+        socket.on('playersNumberUpdaterNew', function (data) {
+            $('#currentPlayerConfig').empty().append("Set for " + data + " players");
+        })
 
-            socket.on('playerConfigUpdate', function(data) {
-                $('#currentPlayerConfig').empty().append("Set for " + data + " players");
-                $('#teamSpot').empty();
-                sentTeam = 0;
-            })
+        socket.on('playerConfigUpdate', function (data) {
+            $('#currentPlayerConfig').empty().append("Set for " + data + " players");
+            $('#teamSpot').empty();
+            sentTeam = 0;
+        })
 
-            socket.on('resetAll', function() {
-                location.reload();
-                $('#playersSpot').empty().append(list.join(', ').toUpperCase());
-                var username = prompt('What\'s your name?');
-                socket.emit('usernameSend', username);
-                
-            })
-            socket.on('playerVotedTeam', function(totalTeamVotes, totalPlayerCount) {
-                var percentDone = totalTeamVotes/totalPlayerCount * 100;
-               $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
-                  console.log(percentDone); 
-            });
+        socket.on('resetAll', function () {
+            location.reload();
+            $('#playersSpot').empty().append(list.join(', ').toUpperCase());
+            var username = prompt('What\'s your name?');
+            socket.emit('usernameSend', username);
 
-             socket.on('playerVotedMission', function(totalMissionVotes, totalPlayerCount) {
-                var percentDone = totalMissionVotes/totalPlayerCount * 100;
-               $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
-                  console.log(percentDone); 
-            });
-        
-            socket.on('beginTeamVote', function() {
-                bootbox.confirm({
+        })
+        socket.on('playerVotedTeam', function (totalTeamVotes, totalPlayerCount) {
+            var percentDone = totalTeamVotes / totalPlayerCount * 100;
+            $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
+            console.log(percentDone);
+        });
+
+        socket.on('playerVotedMission', function (totalMissionVotes, totalPlayerCount) {
+            var percentDone = totalMissionVotes / totalPlayerCount * 100;
+            $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
+            console.log(percentDone);
+        });
+
+        socket.on('beginTeamVote', function () {
+            bootbox.confirm({
                 title: "Team Vote",
                 message: "Would you like to approve the team proposed?",
                 closeButton: false,
                 buttons: {
-                confirm: {
-                label: 'Approve',
-                 className: 'btn-success'
+                    confirm: {
+                        label: 'Approve',
+                        className: 'btn-success'
                     },
-                 cancel: {
-              label: 'Veto',
-                className: 'btn-danger'
-                }
-             },
+                    cancel: {
+                        label: 'Veto',
+                        className: 'btn-danger'
+                    }
+                },
                 callback: function (result) {
-            console.log('This was logged in the callback: ' + result);
-            if (result == true) {
-                socket.emit('playerVoteApprove');
-            } else if (result == false) {
-                socket.emit('playerVoteVeto');
-            }
-    }
-})
-            });
-
-            socket.on('teamVoteFinished', function(approve, veto) {
-                console.log(approve + "and" + veto)
-                bootbox.alert({
-                     message: '<p id="approveMessage">Approve: </p>' + approve + '<p id="vetoMessage">Veto: </p>' + veto,                       
-                     className: 'bb-alternate-modal', 
-                     title: 'Team Vote',             
-                     callback: function() {
-                        socket.emit('teamVoteFinishedReset');
-                        $('#currentVoteCount').empty();
+                    console.log('This was logged in the callback: ' + result);
+                    if (result == true) {
+                        socket.emit('playerVoteApprove');
+                    } else if (result == false) {
+                        socket.emit('playerVoteVeto');
+                    }
                 }
-                });
             })
+        });
 
-            socket.on('beginMissionVote', function() {
-                bootbox.confirm({
+        socket.on('teamVoteFinished', function (approve, veto) {
+            console.log(approve + "and" + veto)
+            bootbox.alert({
+                message: '<p id="approveMessage">Approve: </p>' + approve + '<p id="vetoMessage">Veto: </p>' + veto,
+                className: 'bb-alternate-modal',
+                title: 'Team Vote',
+                callback: function () {
+                    socket.emit('teamVoteFinishedReset');
+                    $('#currentVoteCount').empty();
+                }
+            });
+        })
+
+        socket.on('beginMissionVote', function () {
+            bootbox.confirm({
                 title: "Mission Vote",
                 message: "Would you like to pass or fail this mission?",
                 closeButton: false,
                 buttons: {
-                confirm: {
-                label: 'Pass',
-                 className: 'btn-success'
+                    confirm: {
+                        label: 'Pass',
+                        className: 'btn-success'
                     },
-                 cancel: {
-              label: 'Fail',
-                className: 'btn-danger'
-                }
-             },
+                    cancel: {
+                        label: 'Fail',
+                        className: 'btn-danger'
+                    }
+                },
                 callback: function (result) {
-            console.log('This was logged in the callback: ' + result);
-            if (result == true) {
-                socket.emit('playerVotePass');
-            } else if (result == false) {
-                socket.emit('playerVoteFail');
-            }
-    }
-});
-            });
-
-            socket.on('missionVoteFinished', function(pass, fail) {            
-                bootbox.alert({
-                     message: '<p id="approveMessage">Pass: </p>' + pass + '<p id="vetoMessage">Fail: </p>' + fail,                       
-                     className: 'bb-alternate-modal', 
-                     title: 'Mission Vote',             
-                     callback: function() {
-                        socket.emit('missionVoteFinishedReset');
-                        $('#currentVoteCount').empty();
+                    console.log('This was logged in the callback: ' + result);
+                    if (result == true) {
+                        socket.emit('playerVotePass');
+                    } else if (result == false) {
+                        socket.emit('playerVoteFail');
+                    }
                 }
-                });
-            })
+            });
+        });
 
-        </script>
-  </body>
+        socket.on('missionVoteFinished', function (pass, fail) {
+            bootbox.alert({
+                message: '<p id="approveMessage">Pass: </p>' + pass + '<p id="vetoMessage">Fail: </p>' + fail,
+                className: 'bb-alternate-modal',
+                title: 'Mission Vote',
+                callback: function () {
+                    socket.emit('missionVoteFinishedReset');
+                    $('#currentVoteCount').empty();
+                }
+            });
+        })
+    </script>
+</body>
+
 </html>
