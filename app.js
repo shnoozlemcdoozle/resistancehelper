@@ -122,6 +122,8 @@ io.sockets.on('connection', function (socket, username) {
         socket.broadcast.emit('resetAll')
         playersNumber = 5;
         socket.broadcast.emit('playerConfigUpdate', 5);
+        teamVoteResponses = 0;
+        missionVoteResponses = 0;
     });
 
     socket.on('teamVoteBtnOnClick', function() {
