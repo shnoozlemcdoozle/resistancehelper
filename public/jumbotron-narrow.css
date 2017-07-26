@@ -59,6 +59,10 @@ body {
   margin-top: 28px;
 }
 
+#poke {
+  margin-top: 2%;
+}
+
 .board {
   height: 50px;
   width: 50px;
