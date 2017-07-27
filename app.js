@@ -89,7 +89,7 @@ io.sockets.on('connection', function (socket, username) {
             boxColor1 = 0;
         };
         console.log(boxColor1);
-        socket.emit('boxColor1Change', boxColor1);
+        io.emit('boxColor1Change', boxColor1);
 
     });
 
