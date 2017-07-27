@@ -48,9 +48,14 @@ var missionVoteFail = 0;
 
 var missionVoteResponses = 0;
 
+var socketIds = [];
+
 io.sockets.on('connection', function (socket, username) {
 
     socket.emit('message', 'You are connected!');
+
+    socketIds.push(socket.id);
+    console.log(socketIds);
 
 
     socket.on('usernameSend', function (username) {
