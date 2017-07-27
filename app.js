@@ -56,6 +56,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('usernameSend', function (username) {
         socket.username = username;
 
+        socket.id = username;
+
         players.push(username);
 
         console.log(players);
@@ -162,8 +164,10 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClick', function () {
+        io.to(eitan).emit('beginMissionVote');
+        /*
         socket.emit('beginMissionVote');
-        socket.broadcast.emit('beginMissionVote');
+        socket.broadcast.emit('beginMissionVote'); */
     });
 
     socket.on('playerVotePass', function () {
