@@ -60,11 +60,11 @@ body {
 }
 
 #poke {
-  margin-top: 2%;
+  top: 20px;
 }
 
 .board {
-  font-size: 90%;
+  font-size: large;
   height: 50px;
   width: 50px;
   background: white;
