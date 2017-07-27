@@ -63,7 +63,7 @@ body {
   top: 20px;
 }
 
-#box1 #box2 #box3 #box4 #box5 {
+p.board {
   font-family: Arial, Helvetica, sans-serif;
   color: green;
   
