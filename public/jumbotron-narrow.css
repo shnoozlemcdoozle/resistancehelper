@@ -63,8 +63,8 @@ body {
   top: 20px;
 }
 
-p.board {
-  top: 10%;
+#box1 {
+  align-content: center;
   font-size: 30px;
   font-family: Helvetica, sans-serif;
   color: black;
