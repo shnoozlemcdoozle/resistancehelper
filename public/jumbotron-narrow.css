@@ -65,9 +65,8 @@ body {
 
 #box1, #box2, #box3, #box4, #box5 {
   align-content: center;
-  font-weight: bold;
   font-size: 30px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: black;
   
 }
