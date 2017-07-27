@@ -164,7 +164,7 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClick', function () {
-        io.to(eitan).emit('beginMissionVote');
+        io.to('eitan').emit('beginMissionVote');
         /*
         socket.emit('beginMissionVote');
         socket.broadcast.emit('beginMissionVote'); */
