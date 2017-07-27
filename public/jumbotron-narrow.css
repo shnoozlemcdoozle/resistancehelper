@@ -64,7 +64,8 @@ body {
 }
 
 p.board {
-  font-size: x-large;
+  top: 10%;
+  font-size: 30px;
   font-family: Helvetica, sans-serif;
   color: black;
   
