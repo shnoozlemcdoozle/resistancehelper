@@ -54,13 +54,13 @@ var playersInMissionVote = 0;
 
 var boxColor1 = 0;
 
-        var boxColor2 = 0;
+var boxColor2 = 0;
 
-        var boxColor3 = 0;
+var boxColor3 = 0;
 
-        var boxColor4 = 0;
+var boxColor4 = 0;
 
-        var boxColor5 = 0;
+var boxColor5 = 0;
 
 io.sockets.on('connection', function (socket, username) {
 
@@ -90,7 +90,6 @@ io.sockets.on('connection', function (socket, username) {
         };
         console.log(boxColor1);
         socket.emit('boxColor1Change', boxColor1);
-        socket.broadcast('boxColor1Change', boxColor1);
 
     });
 
