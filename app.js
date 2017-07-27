@@ -52,6 +52,16 @@ var socketIds = [];
 
 var playersInMissionVote = 0;
 
+var boxColor1 = 0;
+
+        var boxColor2 = 0;
+
+        var boxColor3 = 0;
+
+        var boxColor4 = 0;
+
+        var boxColor5 = 0;
+
 io.sockets.on('connection', function (socket, username) {
 
     socket.emit('message', 'You are connected!');
@@ -71,6 +81,16 @@ io.sockets.on('connection', function (socket, username) {
         socket.emit('playersUpdate', players);
 
         socket.emit('playersNumberUpdaterNew', playersNumber);
+    });
+
+    socket.on('boxClick1', function () {
+        boxColor1 += 1;
+        if (boxColor1 === 3) {
+            boxColor1 = 0;
+        };
+        socket.emit('boxColor1Change', boxColor1);
+        socket.broadcast('boxColor1Change', boxColor1);
+
     });
 
     socket.on('teamRequest', function () {
