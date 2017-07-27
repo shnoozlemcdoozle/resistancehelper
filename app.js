@@ -162,10 +162,8 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClick', function () {
-        socket.to(eitan).emit('beginMissionVote');
-        /*
         socket.emit('beginMissionVote');
-        socket.broadcast.emit('beginMissionVote'); */
+        socket.broadcast.emit('beginMissionVote');
     });
 
     socket.on('playerVotePass', function () {
