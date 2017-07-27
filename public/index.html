@@ -140,11 +140,36 @@
         });
 
         $('#missionVoteBtn').click(function () {
-            socket.emit('missionVoteBtnOnClick');
+            
+            socket.emit('missionVoteBtnOnClickPart1');
 
         });
 
         // Sockets
+
+        socket.on('missionVotePrep', function (players) {
+            bootbox.prompt({
+    title: "This is a prompt with a set of checkbox inputs!",
+    inputType: 'checkbox',
+    inputOptions: [
+        {
+            text: players[0],
+            value: '1',
+        },
+        {
+            text: players[1],
+            value: '2',
+        },
+        {
+            text: players[2],
+            value: '3',
+        }
+    ],
+    callback: function (result) {
+        console.log(result);
+    }
+});
+        }
 
         socket.on('teamCard', function (team) {
             $('#teamSpot').append('You are a ' + team);

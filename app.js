@@ -161,6 +161,10 @@ io.sockets.on('connection', function (socket, username) {
         teamVoteResponses = 0;
     })
 
+    socket.on('missionVoteBtnOnClickPart1', function () {
+       socket.emit('missionVotePrep', players)
+    });
+
     socket.on('missionVoteBtnOnClick', function () {
         socket.emit('beginMissionVote');
         socket.broadcast.emit('beginMissionVote');
