@@ -88,6 +88,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor1 === 3) {
             boxColor1 = 0;
         };
+        console.log(boxColor1);
         socket.emit('boxColor1Change', boxColor1);
         socket.broadcast('boxColor1Change', boxColor1);
 
