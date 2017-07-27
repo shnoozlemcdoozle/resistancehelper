@@ -171,8 +171,14 @@ io.sockets.on('connection', function (socket, username) {
        socket.emit('missionVotePrep', players)
     });
 
-    socket.on('missionVoteBtnOnClick', function (arrayNumber) {
-       io.to(socketIds[arrayNumber]).emit('beginMissionVote');
+    socket.on('missionVoteBtnOnClick', function (arrayNumber, numberPlayerInVote) {
+        if (numberPlayerInVote === 1){
+            io.to(socketIds[arrayNumber]).emit('beginMissionVote');
+        }
+       else if (numberPlayerInVote === 2) {
+           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+       }
        
         /*socket.emit('beginMissionVote');
         socket.broadcast.emit('beginMissionVote'); */

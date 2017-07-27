@@ -196,9 +196,8 @@
     callback: function (result) {
         console.log(result);
         var resultLength = result.length;
-        if (resultLength === 1) {
-            socket.emit('missionVoteBtnOnClick', result);
-        };
+        socket.emit('missionVoteBtnOnClick', result, resultLength);
+      
     }
 });
         })
