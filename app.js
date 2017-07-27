@@ -90,7 +90,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor1 === 3) {
             boxColor1 = 0;
         };
-        console.log(boxColor1);
+        
         io.emit('boxColor1Change', boxColor1);
 
     });
@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor3 === 3) {
             boxColor3 = 0;
         };
-        console.log(boxColor3);
+        
         io.emit('boxColor3Change', boxColor3);
 
     });
@@ -110,8 +110,8 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor4 === 3) {
             boxColor4 = 0;
         };
-        console.log(boxColor4);
-        io.emit('boxColor1Change', boxColor4);
+        
+        io.emit('boxColor4Change', boxColor4);
 
     });
 
@@ -120,8 +120,8 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor5 === 3) {
             boxColor5 = 0;
         };
-        console.log(boxColor5);
-        io.emit('boxColor1Change', boxColor5);
+        
+        io.emit('boxColor5Change', boxColor5);
 
     });
 
@@ -130,8 +130,8 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor2 === 3) {
             boxColor2 = 0;
         };
-        console.log(boxColor2);
-        io.emit('boxColor1Change', boxColor2);
+        
+        io.emit('boxColor2Change', boxColor2);
 
     });
 
