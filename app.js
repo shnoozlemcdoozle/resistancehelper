@@ -61,7 +61,7 @@ io.sockets.on('connection', function (socket, username) {
         socket.username = username;
 
         socketIds.push(socket.id);
-        console.log(socketIds);
+        console.log(socketIds); 
 
         players.push(username);
 

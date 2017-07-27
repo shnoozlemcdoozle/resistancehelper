@@ -123,7 +123,7 @@
                 $('#currentPlayerConfig').empty().append("Set for " + newNumber + " players");
                 socket.emit('changeNumPlayers', newNumber);
             }
-        });
+        }); 
 
         $('#resetBtn').click(function () {
             if (confirm('Are you sure?')) {
