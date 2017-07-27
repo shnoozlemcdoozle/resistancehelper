@@ -179,6 +179,24 @@ io.sockets.on('connection', function (socket, username) {
            io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
            io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
        }
+        else if (numberPlayerInVote === 3) {
+           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote'); 
+        }
+        else if (numberPlayerInVote === 4) {
+           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
+        }
+        else if (numberPlayerInVote === 5) {
+           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
+           io.to(socketIds[arrayNumber[4]]).emit('beginMissionVote');
+        }
        
         /*socket.emit('beginMissionVote');
         socket.broadcast.emit('beginMissionVote'); */
