@@ -83,6 +83,8 @@ io.sockets.on('connection', function (socket, username) {
         socket.emit('playersNumberUpdaterNew', playersNumber);
     });
 
+    // Box Color Repeats
+
     socket.on('boxClick1', function () {
         boxColor1 += 1;
         if (boxColor1 === 3) {
@@ -90,6 +92,46 @@ io.sockets.on('connection', function (socket, username) {
         };
         console.log(boxColor1);
         io.emit('boxColor1Change', boxColor1);
+
+    });
+
+    socket.on('boxClick3', function () {
+        boxColor3 += 1;
+        if (boxColor3 === 3) {
+            boxColor3 = 0;
+        };
+        console.log(boxColor3);
+        io.emit('boxColor3Change', boxColor3);
+
+    });
+
+    socket.on('boxClick4', function () {
+        boxColor4 += 1;
+        if (boxColor4 === 3) {
+            boxColor4 = 0;
+        };
+        console.log(boxColor4);
+        io.emit('boxColor1Change', boxColor4);
+
+    });
+
+    socket.on('boxClick5', function () {
+        boxColor5 += 1;
+        if (boxColor5 === 3) {
+            boxColor5 = 0;
+        };
+        console.log(boxColor5);
+        io.emit('boxColor1Change', boxColor5);
+
+    });
+
+    socket.on('boxClick2', function () {
+        boxColor2 += 1;
+        if (boxColor2 === 3) {
+            boxColor2 = 0;
+        };
+        console.log(boxColor2);
+        io.emit('boxColor1Change', boxColor2);
 
     });
 

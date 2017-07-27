@@ -145,10 +145,30 @@
 
         });
 
-        // Boards Buttons
+        // Boards Button Repeats
 
         $('#box1').on('click touchstart', function () {
             socket.emit('boxClick1');
+            
+        });
+
+        $('#box2').on('click touchstart', function () {
+            socket.emit('boxClick2');
+            
+        });
+
+        $('#box3').on('click touchstart', function () {
+            socket.emit('boxClick3');
+            
+        });
+
+        $('#box4').on('click touchstart', function () {
+            socket.emit('boxClick4');
+            
+        });
+
+        $('#box5').on('click touchstart', function () {
+            socket.emit('boxClick5');
             
         });
 
@@ -164,6 +184,66 @@
         }
         else if (numVar === 3) {
             $("#box1").css("background-color","white");
+        }
+        });
+
+         socket.on('boxColor2Change', function(numVar) {
+            if (numVar === 0) {
+            $("#box2").css("background-color","white");
+            }
+        else if (numVar === 1) {
+            $("#box2").css("background-color","red");
+        }
+        else if (numVar === 2) {
+            $("#box2").css("background-color","blue");
+        }
+        else if (numVar === 3) {
+            $("#box2").css("background-color","white");
+        }
+        });
+
+         socket.on('boxColor3Change', function(numVar) {
+            if (numVar === 0) {
+            $("#box3").css("background-color","white");
+            }
+        else if (numVar === 1) {
+            $("#box3").css("background-color","red");
+        }
+        else if (numVar === 2) {
+            $("#box3").css("background-color","blue");
+        }
+        else if (numVar === 3) {
+            $("#box3").css("background-color","white");
+        }
+        });
+
+         socket.on('boxColor4Change', function(numVar) {
+            if (numVar === 0) {
+            $("#box4").css("background-color","white");
+            }
+        else if (numVar === 1) {
+            $("#box4").css("background-color","red");
+        }
+        else if (numVar === 2) {
+            $("#box4").css("background-color","blue");
+        }
+        else if (numVar === 3) {
+            $("#box4").css("background-color","white");
+        }
+        });
+
+         socket.on('boxColor5Change', function(numVar) {
+            if (numVar === 0) {
+            $("#box5").css("background-color","white");
+            }
+        else if (numVar === 1) {
+            $("#box5").css("background-color","red");
+        }
+        else if (numVar === 2) {
+            $("#box5").css("background-color","blue");
+        }
+        else if (numVar === 3) {
+            $("#box5").css("background-color","white");
         }
         });
 
