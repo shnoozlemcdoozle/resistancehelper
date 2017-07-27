@@ -121,6 +121,7 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('resetBtnOnClick', function () {
         players = [];
+        socketIds = [];
         pickedDeck = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
@@ -167,12 +168,14 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClickPart1', function () {
-       socket.emit('missionVotePrep', players, socketIds)
+       socket.emit('missionVotePrep', players)
     });
 
-    socket.on('missionVoteBtnOnClick', function () {
-        socket.emit('beginMissionVote');
-        socket.broadcast.emit('beginMissionVote');
+    socket.on('missionVoteBtnOnClick', function (arrayNumber) {
+       io.to(socketIds[arrayNumber]).emit('beginMissionVote');
+       
+        /*socket.emit('beginMissionVote');
+        socket.broadcast.emit('beginMissionVote'); */
     });
 
     socket.on('playerVotePass', function () {

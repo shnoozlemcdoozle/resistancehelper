@@ -154,47 +154,48 @@
     inputOptions: [
         {
             text: players[0],
-            value: socketIds[0],
+            value: 0,
         },
         {
             text: players[1],
-            value: socketIds[1],
+            value: 1,
         },
         {
             text: players[2],
-            value: socketIds[2],
+            value: 2,
         },
         {
             text: players[3],
-            value: socketIds[3],
+            value: 3,
         },
         {
             text: players[4],
-            value: socketIds[4],
+            value: 4,
         },
          {
             text: players[5],
-            value: socketIds[5],
+            value: 5,
         },
          {
             text: players[6],
-            value: socketIds[6],
+            value: 6,
         },
          {
             text: players[7],
-            value: socketIds[7],
+            value: 7,
         },
          {
             text: players[8],
-            value: socketIds[8],
+            value: 8,
         },
          {
             text: players[9],
-            value: socketIds[9],
+            value: 9,
         },
     ],
     callback: function (result) {
         console.log(result);
+        socket.emit('missionVoteBtnOnClick', idArrayNumber)
     }
 });
         })
