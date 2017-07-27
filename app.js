@@ -56,8 +56,6 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('usernameSend', function (username) {
         socket.username = username;
 
-        socket.id = username;
-
         players.push(username);
 
         console.log(players);
