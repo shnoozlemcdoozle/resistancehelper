@@ -167,7 +167,7 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClickPart1', function () {
-       socket.emit('missionVotePrep', players)
+       socket.emit('missionVotePrep', players, socketIds)
     });
 
     socket.on('missionVoteBtnOnClick', function () {
