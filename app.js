@@ -50,6 +50,8 @@ var missionVoteResponses = 0;
 
 var socketIds = [];
 
+var playersInMissionVote = 0;
+
 io.sockets.on('connection', function (socket, username) {
 
     socket.emit('message', 'You are connected!');
@@ -171,7 +173,10 @@ io.sockets.on('connection', function (socket, username) {
        socket.emit('missionVotePrep', players)
     });
 
-    socket.on('missionVoteBtnOnClick', function (arrayNumber, numberPlayerInVote) {
+    socket.on('missionVoteBtnOnClick', function (arrayNumber, numberPlayerInVote)
+    
+    {
+        playersInMissionVote = numberPlayerInVote;
         if (numberPlayerInVote === 1){
             io.to(socketIds[arrayNumber]).emit('beginMissionVote');
         }
@@ -198,16 +203,14 @@ io.sockets.on('connection', function (socket, username) {
            io.to(socketIds[arrayNumber[4]]).emit('beginMissionVote');
         }
        
-        /*socket.emit('beginMissionVote');
-        socket.broadcast.emit('beginMissionVote'); */
     });
 
     socket.on('playerVotePass', function () {
         missionVotePass += 1;
         missionVoteResponses += 1;
-        socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
-        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersNumber);
-        if (missionVoteResponses == playersNumber) {
+        socket.emit('playerVotedMission', missionVoteResponses, playersInMissionVote);
+        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersInMissionVote);
+        if (missionVoteResponses == playersInMissionVote) {
             socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             console.log("Mission vote is finished")
@@ -217,9 +220,9 @@ io.sockets.on('connection', function (socket, username) {
     socket.on('playerVoteFail', function () {
         missionVoteFail += 1;
         missionVoteResponses += 1;
-        socket.emit('playerVotedMission', missionVoteResponses, playersNumber);
-        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersNumber);
-        if (missionVoteResponses == playersNumber) {
+        socket.emit('playerVotedMission', missionVoteResponses, playersInMissionVote);
+        socket.broadcast.emit('playerVotedMission', missionVoteResponses, playersInMissionVote);
+        if (missionVoteResponses == playersInMissionVote) {
             socket.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             socket.broadcast.emit('missionVoteFinished', missionVotePass, missionVoteFail);
             console.log("Mission vote is finished")
@@ -230,5 +233,6 @@ io.sockets.on('connection', function (socket, username) {
         missionVotePass = 0;
         missionVoteFail = 0;
         missionVoteResponses = 0;
+        playersInMissionVote = 0;
     })
 });
