@@ -56,12 +56,12 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.emit('message', 'You are connected!');
 
-    socketIds.push(socket.id);
-    console.log(socketIds);
-
 
     socket.on('usernameSend', function (username) {
         socket.username = username;
+
+        socketIds.push(socket.id);
+        console.log(socketIds);
 
         players.push(username);
 
