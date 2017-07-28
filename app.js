@@ -71,7 +71,7 @@ io.sockets.on('connection', function (socket, username) {
         socket.username = username;
 
         socketIds.push(socket.id);
-        console.log(socketIds); 
+        console.log(socketIds);
 
         players.push(username);
 
@@ -90,7 +90,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor1 === 3) {
             boxColor1 = 0;
         };
-        
+
         io.emit('boxColor1Change', boxColor1);
 
     });
@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor3 === 3) {
             boxColor3 = 0;
         };
-        
+
         io.emit('boxColor3Change', boxColor3);
 
     });
@@ -110,7 +110,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor4 === 3) {
             boxColor4 = 0;
         };
-        
+
         io.emit('boxColor4Change', boxColor4);
 
     });
@@ -120,7 +120,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor5 === 3) {
             boxColor5 = 0;
         };
-        
+
         io.emit('boxColor5Change', boxColor5);
 
     });
@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket, username) {
         if (boxColor2 === 3) {
             boxColor2 = 0;
         };
-        
+
         io.emit('boxColor2Change', boxColor2);
 
     });
@@ -185,15 +185,39 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('resetBtnOnClick', function () {
         players = [];
+
+        teamVoteApprove = 0;
+
+        teamVoteVeto = 0;
+
+        teamVoteResponses = 0;
+
+        missionVotePass = 0;
+
+        missionVoteFail = 0;
+
+        missionVoteResponses = 0;
+
         socketIds = [];
+
+        playersInMissionVote = 0;
+
+        boxColor1 = 0;
+
+        boxColor2 = 0;
+
+        boxColor3 = 0;
+
+        boxColor4 = 0;
+
+        boxColor5 = 0;
         pickedDeck = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
         socket.broadcast.emit('resetAll')
         playersNumber = 5;
         socket.broadcast.emit('playerConfigUpdate', 5);
-        teamVoteResponses = 0;
-        missionVoteResponses = 0;
+
     });
 
     socket.on('teamVoteBtnOnClick', function () {
@@ -232,39 +256,37 @@ io.sockets.on('connection', function (socket, username) {
     })
 
     socket.on('missionVoteBtnOnClickPart1', function () {
-       socket.emit('missionVotePrep', players)
+        socket.emit('missionVotePrep', players)
     });
 
-    socket.on('missionVoteBtnOnClick', function (arrayNumber, numberPlayerInVote)
-    
-    {
+    socket.on('missionVoteBtnOnClick', function (arrayNumber, numberPlayerInVote) {
         playersInMissionVote = numberPlayerInVote;
-        if (numberPlayerInVote === 1){
+        if (numberPlayerInVote === 1) {
             io.to(socketIds[arrayNumber]).emit('beginMissionVote');
         }
-       else if (numberPlayerInVote === 2) {
-           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
-       }
+        else if (numberPlayerInVote === 2) {
+            io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+        }
         else if (numberPlayerInVote === 3) {
-           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote'); 
+            io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
         }
         else if (numberPlayerInVote === 4) {
-           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
         }
         else if (numberPlayerInVote === 5) {
-           io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
-           io.to(socketIds[arrayNumber[4]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[0]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[1]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[2]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[3]]).emit('beginMissionVote');
+            io.to(socketIds[arrayNumber[4]]).emit('beginMissionVote');
         }
-       
+
     });
 
     socket.on('playerVotePass', function () {
