@@ -62,12 +62,18 @@ var boxColor4 = 0;
 
 var boxColor5 = 0;
 
+var connectAlready = 0;
+
 io.sockets.on('connection', function (socket, username) {
 
     socket.emit('message', 'You are connected!');
 
+    if (connectAlready > 0) {
+        socket.emit('message');
+    }
 
     socket.on('usernameSend', function (username) {
+        connectAlready += 1;
         socket.username = username;
 
         socketIds.push(socket.id);

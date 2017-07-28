@@ -68,9 +68,12 @@
 
         var sentTeam = 0;
 
-        var username = prompt('What\'s your name?');
+        var username = 0;
 
-        socket.emit('usernameSend', username);
+        socket.on('message') {
+            username = prompt('What\'s your name?');
+            socket.emit('usernameSend', username);
+        }
 
         document.getElementById("teamSpot").style.display = "none";
 
