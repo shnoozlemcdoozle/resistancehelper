@@ -84,7 +84,13 @@ io.sockets.on('connection', function (socket, username) {
     });
 
     socket.on('disconnect', function() {
-        console.log(socket.id + "disconnected");
+        console.log(socket.id + " disconnected");
+        var index = socketIds.indexOf(socket.id);
+        console.log(index);
+        socketIds.splice(index, 1);
+        players.splice(index, 1);
+        console.log(socketIds);
+        console.log(players);
     })
     // Box Color Repeats
 
