@@ -84,7 +84,7 @@ io.sockets.on('connection', function (socket, username) {
     });
 
     socket.on('disconnect', function() {
-        console.log(socket + "disconnected");
+        console.log(socket.id + "disconnected");
     })
     // Box Color Repeats
 
