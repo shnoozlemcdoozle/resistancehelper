@@ -83,6 +83,9 @@ io.sockets.on('connection', function (socket, username) {
         socket.emit('playersNumberUpdaterNew', playersNumber);
     });
 
+    socket.on('disconnect', function() {
+        console.log(socket + "disconnected");
+    })
     // Box Color Repeats
 
     socket.on('boxClick1', function () {

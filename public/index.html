@@ -114,7 +114,7 @@
 
         $('#changeNumPlayersBtn').click(function () {
             var newNumber = prompt('How many people are playing? (5-10)');
-            if (newNumber < 4 || newNumber > 10) {
+            if (newNumber < 5 || newNumber > 10) {
                 var newNumber = prompt('That is not a valid number of players. Please pick a value from 5-10');
                 if (newNumber > 3 && newNumber < 11) {
                     socket.emit('changeNumPlayers', newNumber);
@@ -342,21 +342,7 @@
                 $('#box4').empty().append("4*");
                 $('#box5').empty().append("4");
             }
-            else if (data === "8") {
-                $('#box1').empty().append("3");
-                $('#box2').empty().append("4");
-                $('#box3').empty().append("4");
-                $('#box4').empty().append("5*");
-                $('#box5').empty().append("5");
-            }
-            else if (data === "9") {
-                $('#box1').empty().append("3");
-                $('#box2').empty().append("4");
-                $('#box3').empty().append("4");
-                $('#box4').empty().append("5*");
-                $('#box5').empty().append("5");
-            }
-            else if (data === "10") {
+            else if (data === "8" || data === "9" || data === "10") {
                 $('#box1').empty().append("3");
                 $('#box2').empty().append("4");
                 $('#box3').empty().append("4");
