@@ -321,6 +321,24 @@
             $('#currentPlayerConfig').empty().append("Set for " + data + " players");
             $('#teamSpot').empty();
             sentTeam = 0;
+            if (data === 5) {
+                $('#box1').empty().append("9");
+            }
+            else if (data === 6) {
+                $('#box1').empty().append("7");
+            }
+            else if (data === 7) {
+
+            }
+            else if (data === 8) {
+
+            }
+            else if (data === 9) {
+
+            }
+            else if (data === 10) {
+
+            }
         })
 
         socket.on('resetAll', function () {
