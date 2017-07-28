@@ -70,8 +70,10 @@
 
         var username = 0;
 
+
         socket.on('message', function() {
             username = prompt('What\'s your name?');
+            connectAlready += 1;
             socket.emit('usernameSend', username);
         });
 
