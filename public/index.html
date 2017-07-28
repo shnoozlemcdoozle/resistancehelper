@@ -70,10 +70,10 @@
 
         var username = 0;
 
-        socket.on('message') {
+        socket.on('message', function() {
             username = prompt('What\'s your name?');
             socket.emit('usernameSend', username);
-        }
+        });
 
         document.getElementById("teamSpot").style.display = "none";
 
