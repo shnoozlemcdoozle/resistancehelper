@@ -304,8 +304,8 @@
                     console.log(result);
                     var resultLength = result.length;
                     var inBetweenPlayers = parseInt(result)
-                    var missionPlayerOne = inBetweenPlayers[0];
-                    var missionPlayerTwo = inBetweenPlayers[1];
+                    var missionPlayerOne = parseInt(inBetweenPlayers[0]);
+                    var missionPlayerTwo = parseInt(inBetweenPlayers[1]);
                     var playersInCurrentMission = [missionPlayerOne + missionPlayerTwo]
                     if (resultLength > 2) {
                     var missionPlayerThree = inBetweenPlayers[2];
