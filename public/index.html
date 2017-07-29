@@ -304,6 +304,7 @@
                     console.log(result);
                     var resultLength = result.length;
                     var inBetweenPlayers = parseInt(result)
+                    console.log(inBetweenPlayers);
                     var playersInCurrentMission = players[inBetweenPlayers];
                     socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
