@@ -282,6 +282,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (capital != null) {
                         console.log(result);
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
@@ -304,7 +305,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                    }
                     }
                 });
             }
