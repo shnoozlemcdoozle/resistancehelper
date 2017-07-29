@@ -303,7 +303,8 @@
                 callback: function (result) {
                     console.log(result);
                     var resultLength = result.length;
-                    var playersInCurrentMission = result;
+                    var inBetweenPlayers = parseInt(result)
+                    var playersInCurrentMission = players[inBetweenPlayers];
                     socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
                 }
@@ -417,7 +418,7 @@
         socket.on('beginMissionVote', function (playersInMission) {
             bootbox.confirm({
                 title: "Mission Vote",
-                message: "Would you like to pass or fail this mission?" + "Players voting are: " + playersInMission,
+                message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInMission,
                 closeButton: false,
                 buttons: {
                     confirm: {
