@@ -71,7 +71,7 @@
         var username = 0;
 
 
-        socket.on('message', function() {
+        socket.on('message', function () {
             username = prompt('What\'s your name?');
             socket.emit('usernameSend', username);
         });
@@ -254,78 +254,385 @@
 
         // Sockets
 
-        socket.on('missionVotePrep', function (players) {
-            bootbox.prompt({
-                title: "Who will be voting in this mission?",
-                inputType: 'checkbox',
-                inputOptions: [
-                    {
-                        text: players[0],
-                        value: '0',
-                    },
-                    {
-                        text: players[1],
-                        value: '1',
-                    },
-                    {
-                        text: players[2],
-                        value: '2',
-                    },
-                    {
-                        text: players[3],
-                        value: '3',
-                    },
-                    {
-                        text: players[4],
-                        value: '4',
-                    },
-                    {
-                        text: players[5],
-                        value: '5',
-                    },
-                    {
-                        text: players[6],
-                        value: '6',
-                    },
-                    {
-                        text: players[7],
-                        value: '7',
-                    },
-                    {
-                        text: players[8],
-                        value: '8',
-                    },
-                    {
-                        text: players[9],
-                        value: '9',
-                    }
-                ],
-                callback: function (result) {
-                    console.log(result);
-                    var resultLength = result.length;
-                    var resultArray = Array.from(result);
-                    console.log("RA : " + resultArray);
-                    var missionPlayerOne = players[resultArray[0]];
-                    var missionPlayerTwo = players[resultArray[1]];
-                    console.log(missionPlayerOne);
-                    var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
-                    console.log(playersInCurrentMission);           
-                    if (resultLength > 2) {
-                    var missionPlayerThree = players[resultArray[2]];;
-                     playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
-                    }
-                    if (resultLength > 3) {
-                    var missionPlayerFour = players[resultArray[3]];;
-                     playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
-                    }
-                    if (resultLength > 4) {
-                    var missionPlayerFive = players[resultArray[4]];;
-                    playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
-                    }
-                    socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+        socket.on('missionVotePrep', function (players, numberPlayers) {
+            if (numberPlayers === 5) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
-                }
-            });
+                    }
+                });
+            }
+            if (numberPlayers === 6) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        },
+                        {
+                            text: players[5],
+                            value: '5',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+
+                    }
+                });
+            }
+            if (numberPlayers === 7) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        },
+                        {
+                            text: players[5],
+                            value: '5',
+                        },
+                        {
+                            text: players[6],
+                            value: '6',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+
+                    }
+                });
+            }
+            if (numberPlayers === 8) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        },
+                        {
+                            text: players[5],
+                            value: '5',
+                        },
+                        {
+                            text: players[6],
+                            value: '6',
+                        },
+                        {
+                            text: players[7],
+                            value: '7',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+
+                    }
+                });
+            }
+            if (numberPlayers === 9) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        },
+                        {
+                            text: players[5],
+                            value: '5',
+                        },
+                        {
+                            text: players[6],
+                            value: '6',
+                        },
+                        {
+                            text: players[7],
+                            value: '7',
+                        },
+                        {
+                            text: players[8],
+                            value: '8',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+
+                    }
+                });
+            }
+            if (numberPlayers === 10) {
+                bootbox.prompt({
+                    title: "Who will be voting in this mission?",
+                    inputType: 'checkbox',
+                    inputOptions: [
+                        {
+                            text: players[0],
+                            value: '0',
+                        },
+                        {
+                            text: players[1],
+                            value: '1',
+                        },
+                        {
+                            text: players[2],
+                            value: '2',
+                        },
+                        {
+                            text: players[3],
+                            value: '3',
+                        },
+                        {
+                            text: players[4],
+                            value: '4',
+                        },
+                        {
+                            text: players[5],
+                            value: '5',
+                        },
+                        {
+                            text: players[6],
+                            value: '6',
+                        },
+                        {
+                            text: players[7],
+                            value: '7',
+                        },
+                        {
+                            text: players[8],
+                            value: '8',
+                        },
+                        {
+                            text: players[9],
+                            value: '9',
+                        }
+                    ],
+                    callback: function (result) {
+                        console.log(result);
+                        var resultLength = result.length;
+                        var resultArray = Array.from(result);
+                        console.log("RA : " + resultArray);
+                        var missionPlayerOne = players[resultArray[0]];
+                        var missionPlayerTwo = players[resultArray[1]];
+                        console.log(missionPlayerOne);
+                        var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
+                        console.log(playersInCurrentMission);
+                        if (resultLength > 2) {
+                            var missionPlayerThree = players[resultArray[2]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree;
+                        }
+                        if (resultLength > 3) {
+                            var missionPlayerFour = players[resultArray[3]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour;
+                        }
+                        if (resultLength > 4) {
+                            var missionPlayerFive = players[resultArray[4]];;
+                            playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
+                        }
+                        socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
+
+                    }
+                });
+            }
         })
 
         socket.on('teamCard', function (team) {
