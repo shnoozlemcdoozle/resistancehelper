@@ -308,7 +308,7 @@
                     var missionPlayerOne = players[resultArray[0]];
                     var missionPlayerTwo = players[resultArray[1]];
                     console.log(missionPlayerOne);
-                    var playersInCurrentMission = [missionPlayerOne + missionPlayerTwo];
+                    var playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo;
                     console.log(playersInCurrentMission);           
                     if (resultLength > 2) {
                     var missionPlayerThree = players[resultArray[2]];;
@@ -433,11 +433,9 @@
         })
 
         socket.on('beginMissionVote', function (playersInMission) {
-            var playersInMissionArray = array.from(playersInMission)
-            var playersInVoteString = playersInMissionArray.join(", ");
             bootbox.confirm({
                 title: "Mission Vote",
-                message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInVoteString,
+                message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInMission,
                 closeButton: false,
                 buttons: {
                     confirm: {
