@@ -308,7 +308,7 @@
                     var missionPlayerOne = players[resultArray[0]];
                     var missionPlayerTwo = players[resultArray[1]];
                     console.log(missionPlayerOne);
-                    var playersInCurrentMission = missionPlayerOne + missionPlayerTwo;
+                    var playersInCurrentMission = [missionPlayerOne + missionPlayerTwo];
                     console.log(playersInCurrentMission);           
                     if (resultLength > 2) {
                     var missionPlayerThree = players[resultArray[2]];;
@@ -436,7 +436,7 @@
             var playersInVoteString = playersInMission.join(', ');
             bootbox.confirm({
                 title: "Mission Vote",
-                message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInMission,
+                message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInVoteString,
                 closeButton: false,
                 buttons: {
                     confirm: {
