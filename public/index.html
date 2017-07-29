@@ -255,7 +255,7 @@
         // Sockets
 
         socket.on('missionVotePrep', function (players) {
-            if (players.length === 5) {
+            if (players.length < 6) {
                 bootbox.prompt({
                     title: "Who will be voting in this mission?",
                     inputType: 'checkbox',
