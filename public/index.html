@@ -340,6 +340,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (result != null) {
                         console.log(result);
 
                         var resultArray = Array.from(result);
@@ -363,7 +364,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                        }
                     }
                 });
             }
@@ -402,6 +403,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (result != null) {
                         console.log(result);
 
                         var resultArray = Array.from(result);
@@ -425,7 +427,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                        }
                     }
                 });
             }
@@ -468,6 +470,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (result != null) {
                         console.log(result);
 
                         var resultArray = Array.from(result);
@@ -491,7 +494,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                        }
                     }
                 });
             }
@@ -538,6 +541,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (result != null) {
                         console.log(result);
 
                         var resultArray = Array.from(result);
@@ -561,7 +565,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                        }
                     }
                 });
             }
@@ -612,6 +616,7 @@
                         }
                     ],
                     callback: function (result) {
+                        if (result != null) {
                         console.log(result);
 
                         var resultArray = Array.from(result);
@@ -635,7 +640,7 @@
                             playersInCurrentMission = missionPlayerOne + ", " + missionPlayerTwo + ", " + missionPlayerThree + ", " + missionPlayerFour + ", " + missionPlayerFive;
                         }
                         socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
-
+                        }
                     }
                 });
             }
