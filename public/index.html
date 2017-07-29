@@ -306,17 +306,20 @@
                     var inBetweenPlayers = parseInt(result)
                     var missionPlayerOne = inBetweenPlayers[0];
                     var missionPlayerTwo = inBetweenPlayers[1];
+                    var playersInCurrentMission = [missionPlayerOne + missionPlayerTwo]
                     if (resultLength > 2) {
                     var missionPlayerThree = inBetweenPlayers[2];
+                     playersInCurrentMission = [missionPlayerOne + missionPlayerTwo + missionPlayerThree]
                     }
                     if (resultLength > 3) {
                     var missionPlayerFour = inBetweenPlayers[3];
+                     playersInCurrentMission = [missionPlayerOne + missionPlayerTwo + missionPlayerThree + missionPlayerFour]
                     }
                     if (resultLength > 4) {
                     var missionPlayerFive = inBetweenPlayers[4];
+                    playersInCurrentMission = [missionPlayerOne + missionPlayerTwo + missionPlayerThree + missionPlayerFour + missionPlayerFive]
                     }
                     console.log(inBetweenPlayers);
-                    var playersInCurrentMission = [missionPlayerOne + missionPlayerTwo + missionPlayerThree + missionPlayerFour + missionPlayerFive];
                     socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
                 }
