@@ -303,11 +303,11 @@
                 callback: function (result) {
                     console.log(result);
                     var resultLength = result.length;
-                    var inBetweenPlayers = parseInt(result)
-                    var missionPlayerOne = parseInt(inBetweenPlayers[0]);
-                    var missionPlayerTwo = parseInt(inBetweenPlayers[1]);
+                    var missionPlayerOne = parseInt(result[0]);
+                    var missionPlayerTwo = parseInt(result[1]);
                     console.log(missionPlayerOne);
                     var playersInCurrentMission = missionPlayerOne + missionPlayerTwo;
+                    /*
                     if (resultLength > 2) {
                     var missionPlayerThree = inBetweenPlayers[2];
                      playersInCurrentMission = [missionPlayerOne + missionPlayerTwo + missionPlayerThree]
@@ -320,6 +320,7 @@
                     var missionPlayerFive = inBetweenPlayers[4];
                     playersInCurrentMission = missionPlayerOne + missionPlayerTwo + missionPlayerThree + missionPlayerFour + missionPlayerFive;
                     }
+                    */
                     console.log(inBetweenPlayers);
                     socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
