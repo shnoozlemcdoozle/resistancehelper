@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Resistance Helper</title>
+    <title>Phonesistance</title>
 
 
 </head>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="jumbotron">
-            <h1>Resistance Helper</h1>
+            <h1>Phonesistance</h1>
             <p class="board" id="box1">2</p>
             <p class="board" id="box2">3</p>
             <p class="board" id="box3">2</p>
@@ -303,7 +303,8 @@
                 callback: function (result) {
                     console.log(result);
                     var resultLength = result.length;
-                    socket.emit('missionVoteBtnOnClick', result, resultLength);
+                    var playersInCurrentMission = result;
+                    socket.emit('missionVoteBtnOnClick', result, resultLength, playersInCurrentMission);
 
                 }
             });
@@ -413,10 +414,10 @@
             });
         })
 
-        socket.on('beginMissionVote', function () {
+        socket.on('beginMissionVote', function (playersInMission) {
             bootbox.confirm({
                 title: "Mission Vote",
-                message: "Would you like to pass or fail this mission?",
+                message: "Would you like to pass or fail this mission?" + "Players voting are: " + playersInMission,
                 closeButton: false,
                 buttons: {
                     confirm: {
