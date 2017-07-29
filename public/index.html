@@ -305,8 +305,8 @@
                     var resultLength = result.length;
                     var resultArray = Array.from(result);
                     console.log("RA : " + resultArray);
-                    var missionPlayerOne = resultArray[0];
-                    var missionPlayerTwo = resultArray[1];
+                    var missionPlayerOne = players[resultArray[0]];
+                    var missionPlayerTwo = players[resultArray[1]];
                     console.log(missionPlayerOne);
                     var playersInCurrentMission = missionPlayerOne + missionPlayerTwo;
                     console.log(playersInCurrentMission);
