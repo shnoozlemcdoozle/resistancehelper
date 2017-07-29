@@ -433,7 +433,7 @@
         })
 
         socket.on('beginMissionVote', function (playersInMission) {
-            var playersInVoteString = playersInMission.join(', ');
+            var playersInVoteString = playersInMission.join();
             bootbox.confirm({
                 title: "Mission Vote",
                 message: "Would you like to pass or fail this mission?" + "<br>" + "Players voting are: " + playersInVoteString,
