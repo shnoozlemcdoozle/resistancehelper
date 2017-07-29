@@ -283,8 +283,9 @@
                     ],
                     callback: function (result) {
                         console.log(result);
-                        var resultLength = result.length();
                         var resultArray = Array.from(result);
+                        var resultLength = result.length;
+                        var resultLength = result.length();
                         console.log("RA : " + resultArray);
                         var missionPlayerOne = players[resultArray[0]];
                         var missionPlayerTwo = players[resultArray[1]];
