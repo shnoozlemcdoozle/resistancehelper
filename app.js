@@ -105,6 +105,8 @@ io.sockets.on('connection', function (socket, username) {
         };
 
         io.emit('boxColor1Change', boxColor1);
+        socket.emit('playerConfigUpdate', playersNumber);
+        socket.broadcast.emit('playerConfigUpdate', playersNumber);
 
     });
 
