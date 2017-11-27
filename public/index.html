@@ -131,14 +131,17 @@
         });
 
         $('#resetBtn').click(function () {
-            if (confirm('Are you sure?')) {
-                socket.emit('resetBtnOnClick');
-                location.reload();
-            } else {
-                return false;
-            }
+            bootbox.prompt({
+            title: "How many players in the new game? (5-10)",
+             inputType: 'number',
+            callback: function (result) {
+        socket.emit('resetBtnOnClick', result);
+        location.reload();
+        console.log(result);
+    }
+});
         });
-
+    
         $('#teamVoteBtn').click(function () {
             socket.emit('teamVoteBtnOnClick');
 
