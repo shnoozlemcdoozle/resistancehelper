@@ -221,7 +221,50 @@ io.sockets.on('connection', function (socket, username) {
         boxColor4 = 0;
 
         boxColor5 = 0;
-        pickedDeck = ['spy!', 'spy!', 'part of the resistance!', 'part of the resistance!', 'part of the resistance!'];
+        
+        bootbox.prompt({
+            title: "How many players in the new game? (5-10)",
+            inputType: 'number',
+            callback: function (result) {
+        console.log(result);
+        if (result == 5){
+            pickedDeck = cards5;
+        } else if (result == 6) {
+            pickedDeck = cards6;
+        } else if (result == 7) {
+            pickedDeck = cards7;
+        } else if (result == 8) {
+            pickedDeck = cards8;
+        } else if (result == 9) {
+            pickedDeck = cards9;
+        } else if (result == 10) {
+            pickedDeck = cards10;
+        } else {
+            bootbox.prompt({
+            title: "5-10 Please",
+            inputType: 'number',
+            callback: function (result) {
+        console.log(result);
+        if (result == 5){
+            pickedDeck = cards5;
+        } else if (result == 6) {
+            pickedDeck = cards6;
+        } else if (result == 7) {
+            pickedDeck = cards7;
+        } else if (result == 8) {
+            pickedDeck = cards8;
+        } else if (result == 9) {
+            pickedDeck = cards9;
+        } else if (result == 10) {
+            pickedDeck = cards10;
+        } else {
+            
+        }
+    }
+});
+        }
+    }
+});
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
         socket.broadcast.emit('resetAll')
