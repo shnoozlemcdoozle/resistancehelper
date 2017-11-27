@@ -662,7 +662,6 @@
         })
 
         socket.on('playerConfigUpdate', function (data) {
-            $('#currentPlayerConfig').empty().append("Set for " + data + " players");
             $('#teamSpot').empty();
             sentTeam = 0;
             if (data === "5") {
