@@ -81,7 +81,7 @@ io.sockets.on('connection', function (socket, username) {
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
 
-        socket.emit('playersNumberUpdaterNew', playersNumber);
+        
     });
 
     socket.on('disconnect', function() {
