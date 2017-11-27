@@ -84,6 +84,9 @@ io.sockets.on('connection', function (socket, username) {
         
     });
 
+    socket.emit('playerConfigUpdate', playersNumber);
+    socket.broadcast.emit('playerConfigUpdate', playersNumber);
+
     socket.on('disconnect', function() {
         console.log(socket.id + " disconnected");
         var index = socketIds.indexOf(socket.id);
@@ -194,6 +197,10 @@ io.sockets.on('connection', function (socket, username) {
     });
 
     socket.on('resetBtnOnClick', function (result) {
+        socket.broadcast.emit('playersUpdate', players);
+        socket.emit('playersUpdate', players);
+        socket.broadcast.emit('resetAll');
+
         players = [];
 
         teamVoteApprove = 0;
@@ -226,43 +233,45 @@ io.sockets.on('connection', function (socket, username) {
         if (result == 5){
             pickedDeck = cards5;
             playersNumber = 5;
+            socket.emit('playerConfigUpdate', 5);
             socket.broadcast.emit('playerConfigUpdate', 5);
             socket.emit('playersNumberUpdaterNew', result);
         } else if (result == 6) {
             pickedDeck = cards6;
             playersNumber = 6;
+            socket.emit('playerConfigUpdate', 6);
             socket.broadcast.emit('playerConfigUpdate', 6);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
         } else if (result == 7) {
             pickedDeck = cards7;
             playersNumber = 7;
+            socket.emit('playerConfigUpdate', 7);
             socket.broadcast.emit('playerConfigUpdate', 7);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
         } else if (result == 8) {
             pickedDeck = cards8;
             playersNumber = 8;
+            socket.emit('playerConfigUpdate', 8);
             socket.broadcast.emit('playerConfigUpdate', 8);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
         } else if (result == 9) {
             pickedDeck = cards9;
             playersNumber = 9;
+            socket.emit('playerConfigUpdate', 9);
             socket.broadcast.emit('playerConfigUpdate', 9);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
         } else if (result == 10) {
             pickedDeck = cards10;
             playersNumber = 10;
+            socket.emit('playerConfigUpdate', 10);
             socket.broadcast.emit('playerConfigUpdate', 10);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
         }
-
-        socket.broadcast.emit('playersUpdate', players);
-        socket.emit('playersUpdate', players);
-        socket.broadcast.emit('resetAll')
 
     });
 
