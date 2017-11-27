@@ -193,7 +193,7 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
-    socket.on('resetBtnOnClick', function () {
+    socket.on('resetBtnOnClick', function (result) {
         players = [];
 
         teamVoteApprove = 0;
@@ -222,54 +222,36 @@ io.sockets.on('connection', function (socket, username) {
 
         boxColor5 = 0;
         
-        bootbox.prompt({
-            title: "How many players in the new game? (5-10)",
-            inputType: 'number',
-            callback: function (result) {
         console.log(result);
         if (result == 5){
             pickedDeck = cards5;
+            playersNumber = 5;
+            socket.broadcast.emit('playerConfigUpdate', 5);
         } else if (result == 6) {
             pickedDeck = cards6;
+            playersNumber = 6;
+            socket.broadcast.emit('playerConfigUpdate', 6);
         } else if (result == 7) {
             pickedDeck = cards7;
+            playersNumber = 7;
+            socket.broadcast.emit('playerConfigUpdate', 7);
         } else if (result == 8) {
             pickedDeck = cards8;
+            playersNumber = 8;
+            socket.broadcast.emit('playerConfigUpdate', 8);
         } else if (result == 9) {
             pickedDeck = cards9;
+            playersNumber = 9;
+            socket.broadcast.emit('playerConfigUpdate', 9);
         } else if (result == 10) {
             pickedDeck = cards10;
-        } else {
-            bootbox.prompt({
-            title: "5-10 Please",
-            inputType: 'number',
-            callback: function (result) {
-        console.log(result);
-        if (result == 5){
-            pickedDeck = cards5;
-        } else if (result == 6) {
-            pickedDeck = cards6;
-        } else if (result == 7) {
-            pickedDeck = cards7;
-        } else if (result == 8) {
-            pickedDeck = cards8;
-        } else if (result == 9) {
-            pickedDeck = cards9;
-        } else if (result == 10) {
-            pickedDeck = cards10;
-        } else {
-            
+            playersNumber = 10;
+            socket.broadcast.emit('playerConfigUpdate', 10);
         }
-    }
-});
-        }
-    }
-});
+
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
         socket.broadcast.emit('resetAll')
-        playersNumber = 5;
-        socket.broadcast.emit('playerConfigUpdate', 5);
 
     });
 
