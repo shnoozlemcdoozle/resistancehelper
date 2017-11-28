@@ -48,6 +48,7 @@
         </div>
         <a class="btn btn-xs btn-primary" id="changeNumPlayersBtn" href="#" role="button"># Players</a>
         <a class="btn btn-xs btn-danger" id="resetBtn" href="#" role="button">Reset the game</a>
+        <a class="btn btn-xs btn-info" id="resetVoteAfterProblem" href="#" role="button">Reset vote xD</a>
 
         <br><br>
 
@@ -141,6 +142,11 @@
     }
 });
         });
+
+        $('#resetVoteAfterProblem').click(function () {
+        socket.emit('resetVoteProblem');    
+});
+        
     
         $('#teamVoteBtn').click(function () {
             socket.emit('teamVoteBtnOnClick');

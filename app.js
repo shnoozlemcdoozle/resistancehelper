@@ -277,6 +277,14 @@ io.sockets.on('connection', function (socket, username) {
 
     });
 
+    socket.on('resetVoteProblem', function() {
+        teamVoteApprove = 0;
+
+        teamVoteVeto = 0;
+
+        teamVoteResponses = 0;
+    })
+
     socket.on('teamVoteBtnOnClick', function () {
         socket.emit('beginTeamVote');
         socket.broadcast.emit('beginTeamVote');
