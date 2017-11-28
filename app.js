@@ -283,7 +283,10 @@ io.sockets.on('connection', function (socket, username) {
         teamVoteVeto = 0;
 
         teamVoteResponses = 0;
-    })
+
+        socket.broadcast.emit('removeProgressBar');
+        socket.emit('removeProgressBar');
+    });
 
     socket.on('teamVoteBtnOnClick', function () {
         socket.emit('beginTeamVote');
