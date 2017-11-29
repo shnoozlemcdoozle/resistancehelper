@@ -131,12 +131,7 @@
 });
         });
         $('#resetVoteAfterProblem').click(function () {
-        socket.emit('resetVoteProblem');
-        
-        socket.on('removeProgressBar', function() {
-             $('#currentVoteCount').empty();
-        });
-        
+        socket.emit('resetVoteProblem');    
 });
         
     
