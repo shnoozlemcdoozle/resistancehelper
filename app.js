@@ -84,9 +84,6 @@ io.sockets.on('connection', function (socket, username) {
         
     });
 
-    socket.emit('playerConfigUpdate', playersNumber);
-    socket.broadcast.emit('playerConfigUpdate', playersNumber);
-
     socket.on('disconnect', function() {
         console.log(socket.id + " disconnected");
         var index = socketIds.indexOf(socket.id);
