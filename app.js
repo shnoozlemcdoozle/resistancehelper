@@ -34,6 +34,8 @@ var io = require('socket.io').listen(server.listen(port));
 
 var players = [];
 
+var playersNumber = 5;
+
 var teamVoteApprove = 0;
 
 var teamVoteVeto = 0;
@@ -79,10 +81,11 @@ io.sockets.on('connection', function (socket, username) {
         socket.broadcast.emit('playersUpdate', players);
         socket.emit('playersUpdate', players);
 
-        var playersNumber = 5;
-
         
     });
+
+    socket.emit('playerConfigUpdate', playersNumber);
+    socket.broadcast.emit('playerConfigUpdate', playersNumber);
 
     socket.on('disconnect', function() {
         console.log(socket.id + " disconnected");
@@ -102,6 +105,8 @@ io.sockets.on('connection', function (socket, username) {
         };
 
         io.emit('boxColor1Change', boxColor1);
+        socket.emit('playerConfigUpdate', playersNumber);
+        socket.broadcast.emit('playerConfigUpdate', playersNumber);
 
     });
 
