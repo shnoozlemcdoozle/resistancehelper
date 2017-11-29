@@ -625,8 +625,7 @@
         socket.on('playersUpdate', function (list) {
             $('#playersSpot').empty().append(list.join(', ').toUpperCase());
         });
-        socket.on('playersNumberUpdaterNew', function (data) {
-            $('#currentPlayerConfig').empty().append("Set for " + data + " players");
+        
         })
         socket.on('playerConfigUpdate', function (data) {
             $('#teamSpot').empty();
