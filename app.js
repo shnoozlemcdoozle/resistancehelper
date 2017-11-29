@@ -259,6 +259,7 @@ io.sockets.on('connection', function (socket, username) {
             socket.broadcast.emit('playerConfigUpdate', 8);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
+            console.log(result);
         } else if (result == 9) {
             pickedDeck = cards9;
             playersNumber = 9;

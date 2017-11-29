@@ -137,6 +137,9 @@
              inputType: 'number',
             callback: function (result) {
         socket.emit('resetBtnOnClick', result);
+        location.reload();
+        var numberOfPlayersForStupid = result;
+        
         console.log(result);
     }
 });
