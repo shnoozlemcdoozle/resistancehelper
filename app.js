@@ -34,8 +34,6 @@ var io = require('socket.io').listen(server.listen(port));
 
 var players = [];
 
-var playersNumber = 5;
-
 var teamVoteApprove = 0;
 
 var teamVoteVeto = 0;
@@ -162,37 +160,37 @@ io.sockets.on('connection', function (socket, username) {
         if (data == 5) {
             pickedDeck = cards5;
             console.log('Players changed to 5');
-            playersNumber = 5;
+            var playersNumber = 5;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 6) {
             pickedDeck = cards6;
             console.log('Players changed to 6');
-            playersNumber = 6;
+            var playersNumber = 6;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 7) {
             pickedDeck = cards7;
             console.log('Players changed to 7');
-            playersNumber = 7;
+            var playersNumber = 7;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 8) {
             pickedDeck = cards8;
             console.log('Players changed to 8');
-            playersNumber = 8;
+            var playersNumber = 8;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 9) {
             pickedDeck = cards9;
             console.log('Players changed to 9');
-            playersNumber = 9;
+            var playersNumber = 9;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         } else if (data == 10) {
             pickedDeck = cards10;
             console.log('Players changed to 10');
-            playersNumber = 10;
+            var playersNumber = 10;
             socket.emit('playerConfigUpdate', data);
             socket.broadcast.emit('playerConfigUpdate', data);
         }
@@ -259,7 +257,6 @@ io.sockets.on('connection', function (socket, username) {
             socket.broadcast.emit('playerConfigUpdate', 8);
             socket.emit('playersNumberUpdaterNew', result);
             socket.broadcast.emit('playersNumberUpdaterNew', result);
-            console.log(result);
         } else if (result == 9) {
             pickedDeck = cards9;
             playersNumber = 9;
