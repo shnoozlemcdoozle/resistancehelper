@@ -66,21 +66,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-
         var sentTeam = 0;
-
         var username = 0;
-
-
         socket.on('message', function () {
             username = prompt('What\'s your name?');
             socket.emit('usernameSend', username);
         });
-
         document.getElementById("teamSpot").style.display = "none";
-
         // Buttons 
-
         $('#poke').on('click touchstart', function () {
             document.getElementById("teamSpot").style.display = "inline";
             document.getElementById("poke").style.display = "none";
@@ -89,12 +82,10 @@
                 sentTeam += 1;
             }
         });
-
         $("#poke").on('click touchend', function () {
             document.getElementById("teamSpot").style.display = "none";
             document.getElementById("poke").style.display = "inline";
         });
-
         $("#poke").extend({
             disableSelection: function () {
                 this.each(function () {
@@ -105,7 +96,6 @@
                 });
             }
         });
-
         $("#teamSpot").extend({
             disableSelection: function () {
                 this.each(function () {
@@ -116,7 +106,6 @@
                 });
             }
         });
-
         $('#changeNumPlayersBtn').click(function () {
             var newNumber = prompt('How many people are playing? (5-10)');
             if (newNumber < 5 || newNumber > 10) {
@@ -130,70 +119,48 @@
                 socket.emit('changeNumPlayers', newNumber);
             }
         });
-
         $('#resetBtn').click(function () {
             bootbox.prompt({
             title: "How many players in the new game? (5-10)",
              inputType: 'number',
             callback: function (result) {
         socket.emit('resetBtnOnClick', result);
-        username = prompt('What\'s your name?');
-        socket.emit('usernameSend', username);
-
         console.log(result);
     }
 });
         });
-
         $('#resetVoteAfterProblem').click(function () {
         socket.emit('resetVoteProblem');
         
         socket.on('removeProgressBar', function() {
              $('#currentVoteCount').empty();
         });
-
         
 });
         
     
         $('#teamVoteBtn').click(function () {
             socket.emit('teamVoteBtnOnClick');
-
         });
-
         $('#missionVoteBtn').click(function () {
-
             socket.emit('missionVoteBtnOnClickPart1');
-
         });
-
         // Boards Button Repeats
-
         $('#box1').on('click touchstart', function () {
             socket.emit('boxClick1');
-
         });
-
         $('#box2').on('click touchstart', function () {
             socket.emit('boxClick2');
-
         });
-
         $('#box3').on('click touchstart', function () {
             socket.emit('boxClick3');
-
         });
-
         $('#box4').on('click touchstart', function () {
             socket.emit('boxClick4');
-
         });
-
         $('#box5').on('click touchstart', function () {
             socket.emit('boxClick5');
-
         });
-
         socket.on('boxColor1Change', function (numVar) {
             if (numVar === 0) {
                 $("#box1").css("background-color", "white");
@@ -208,7 +175,6 @@
                 $("#box1").css("background-color", "white");
             }
         });
-
         socket.on('boxColor2Change', function (numVar) {
             if (numVar === 0) {
                 $("#box2").css("background-color", "white");
@@ -223,7 +189,6 @@
                 $("#box2").css("background-color", "white");
             }
         });
-
         socket.on('boxColor3Change', function (numVar) {
             if (numVar === 0) {
                 $("#box3").css("background-color", "white");
@@ -238,7 +203,6 @@
                 $("#box3").css("background-color", "white");
             }
         });
-
         socket.on('boxColor4Change', function (numVar) {
             if (numVar === 0) {
                 $("#box4").css("background-color", "white");
@@ -253,7 +217,6 @@
                 $("#box4").css("background-color", "white");
             }
         });
-
         socket.on('boxColor5Change', function (numVar) {
             if (numVar === 0) {
                 $("#box5").css("background-color", "white");
@@ -268,9 +231,7 @@
                 $("#box5").css("background-color", "white");
             }
         });
-
         // Sockets
-
         socket.on('missionVotePrep', function (players) {
             if (players.length < 6) {
                 bootbox.prompt({
@@ -359,7 +320,6 @@
                     callback: function (result) {
                         if (result != null) {
                         console.log(result);
-
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
                         console.log("RA : " + resultArray);
@@ -422,7 +382,6 @@
                     callback: function (result) {
                         if (result != null) {
                         console.log(result);
-
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
                         console.log("RA : " + resultArray);
@@ -489,7 +448,6 @@
                     callback: function (result) {
                         if (result != null) {
                         console.log(result);
-
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
                         console.log("RA : " + resultArray);
@@ -560,7 +518,6 @@
                     callback: function (result) {
                         if (result != null) {
                         console.log(result);
-
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
                         console.log("RA : " + resultArray);
@@ -635,7 +592,6 @@
                     callback: function (result) {
                         if (result != null) {
                         console.log(result);
-
                         var resultArray = Array.from(result);
                         var resultLength = result.length;
                         console.log("RA : " + resultArray);
@@ -662,19 +618,15 @@
                 });
             }
         })
-
         socket.on('teamCard', function (team) {
             $('#teamSpot').append('You are a ' + team);
         })
-
         socket.on('playersUpdate', function (list) {
             $('#playersSpot').empty().append(list.join(', ').toUpperCase());
         });
-
         socket.on('playersNumberUpdaterNew', function (data) {
             $('#currentPlayerConfig').empty().append("Set for " + data + " players");
         })
-
         socket.on('playerConfigUpdate', function (data) {
             $('#teamSpot').empty();
             sentTeam = 0;
@@ -707,26 +659,22 @@
                 $('#box5').empty().append("5");
             }
         })
-
         socket.on('resetAll', function () {
             
             $('#playersSpot').empty().append(list.join(', ').toUpperCase());
             var username = prompt('What\'s your name?');
             socket.emit('usernameSend', username);
-
         });
         socket.on('playerVotedTeam', function (totalTeamVotes, totalPlayerCount) {
             var percentDone = totalTeamVotes / totalPlayerCount * 100;
             $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped active' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
             console.log(percentDone);
         });
-
         socket.on('playerVotedMission', function (totalMissionVotes, totalPlayerCount) {
             var percentDone = totalMissionVotes / totalPlayerCount * 100;
             $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped active' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
             console.log(percentDone);
         });
-
         socket.on('beginTeamVote', function () {
             bootbox.confirm({
                 title: "Team Vote",
@@ -753,7 +701,6 @@
                 }
             })
         });
-
         socket.on('teamVoteFinished', function (approve, veto) {
             console.log(approve + "and" + veto)
             bootbox.alert({
@@ -766,7 +713,6 @@
                 }
             });
         })
-
         socket.on('beginMissionVote', function (playersInMission) {
             bootbox.confirm({
                 title: "Mission Vote",
@@ -792,7 +738,6 @@
                 }
             });
         });
-
         socket.on('missionVoteFinished', function (pass, fail) {
             bootbox.alert({
                 message: '<p id="approveMessage">Pass: </p>' + pass + '<p id="vetoMessage">Fail: </p>' + fail,
