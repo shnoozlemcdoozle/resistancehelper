@@ -626,7 +626,7 @@
             $('#playersSpot').empty().append(list.join(', ').toUpperCase());
         });
         
-        })
+        
         socket.on('playerConfigUpdate', function (data) {
             $('#teamSpot').empty();
             sentTeam = 0;
