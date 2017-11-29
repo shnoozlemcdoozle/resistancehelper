@@ -137,9 +137,9 @@
              inputType: 'number',
             callback: function (result) {
         socket.emit('resetBtnOnClick', result);
-        location.reload();
-        var numberOfPlayersForStupid = result;
-        
+        username = prompt('What\'s your name?');
+        socket.emit('usernameSend', username);
+
         console.log(result);
     }
 });
