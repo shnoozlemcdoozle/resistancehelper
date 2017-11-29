@@ -137,7 +137,6 @@
              inputType: 'number',
             callback: function (result) {
         socket.emit('resetBtnOnClick', result);
-        location.reload();
         console.log(result);
     }
 });
@@ -712,7 +711,7 @@
             var username = prompt('What\'s your name?');
             socket.emit('usernameSend', username);
 
-        })
+        });
         socket.on('playerVotedTeam', function (totalTeamVotes, totalPlayerCount) {
             var percentDone = totalTeamVotes / totalPlayerCount * 100;
             $('#currentVoteCount').empty().append("<div class='progress'><div class='progress-bar progress-bar-info progress-bar-striped active' role='progressbar' aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:" + percentDone + "%'></div></div>");
